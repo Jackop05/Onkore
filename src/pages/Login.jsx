@@ -1,8 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(false);
+
+
+
+  const onSubmit = (event)  => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      setError(true);
+    } else {      
+      setError(false);
+
+      let emailLength = email.length;
+      let passwordLength = password.length;
+      let confirmPasswordLength = confirmPassword.length
+      const interval = 1000 / Math.max(emailLength, passwordLength, confirmPasswordLength); 
+
+      const intervalId = setInterval(() => {
+        if (emailLength > 0) {
+          setEmail(email.slice(0, --emailLength)); 
+        } 
+        if (passwordLength > 0) {
+          setPassword(password.slice(0, --passwordLength));
+        }
+        if (confirmPasswordLength > 0) {
+          setConfirmPassword(confirmPassword.slice(0, --confirmPasswordLength));
+        }
+
+        if (emailLength == 0 && passwordLength == 0 && confirmPasswordLength == 0) {
+          clearInterval(intervalId);
+        }
+      }, interval);
+    }
+  }
+
+  
+
+
+
+
+
   return (
     <div className="w-screen h-screen flex flex-col justify-center basic bg-slate-50">
         <div className="w-[400px] h-[600px] mx-auto rounded-[20px] shadow-xl flex flex-col px-8 py-6 bg-white cursor-default">
@@ -15,24 +59,24 @@ const Login = () => {
                 <span className="hover:text-neongreen transition-all duration-100">u</span>
                 <span className="hover:text-neongreen transition-all duration-100">j</span>
             </div>
-            <form className=''>
+            <form className='' onSubmit={(event) => onSubmit(event)}>
               <div class="mb-4">
                   <label for="email" class="block text-gray-800 font-semibold mb-2">Email:</label>
-                  <input type="email" id="email" name="email" placeholder="TwójEmail@email.pl" className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-neonblue" required />
+                  <input type="email" id="email" name="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="TwójEmail@email.pl" className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-neonblue" required />
               </div>
               <div class="mb-4">
                   <label for="password" class="block text-gray-800 font-semibold mb-2">Hasło:</label>
-                  <input type="password" id="password" name="password" placeholder="Ustaw hasło..." className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-neonblue" required />
+                  <input type="password" id="password" name="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Ustaw hasło..." className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-neonblue" required />
               </div>
 
-              <div class="mb-8">
+              <div class="mb-4">
                   <label for="confirmPassword" class="block text-gray-800 font-semibold mb-2">Potwierdź hasło:</label>
-                  <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Potwierdź ustawione hasło..." className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-neonblue " required />
+                  <input type="password" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} placeholder="Potwierdź ustawione hasło..." className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-neonblue " required />
               </div>
 
-              <p id="error" class="text-red-500 text-sm mb-4 hidden">Passwords do not match!</p>
+              <p id="error" class={`text-red-500 text-lg font-bold mb-4 ${error ? '' : 'hidden'}`}>Passwords do not match!</p>
 
-              <button type="submit" class="w-full text-white py-2 mb-4 rounded-lg bg-neonblue shadow-sm transition-all duration-150 hover:scale-105">
+              <button type="submit" class="w-full text-white py-2 mt-4 mb-4 rounded-lg bg-neonblue shadow-sm transition-all duration-150 hover:scale-105">
                   <div className='drop-shadow-md text-xl'>Zaloguj</div>
               </button>
           </form>
@@ -56,4 +100,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
