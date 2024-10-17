@@ -11,7 +11,7 @@ const Register = () => {
     let emailLength = email.length;
     let passwordLength = password.length;
     
-    const interval = 1000 / Math.max(emailLength, nameLength, passwordLength);
+    const interval = 1000 / Math.max(emailLength, passwordLength);
 
     const intervalId = setInterval(() => {
       if (emailLength > 0) {
@@ -21,12 +21,14 @@ const Register = () => {
         setPassword(password.slice(0, --passwordLength));
       }
 
-      if (emailLength === 0 && nameLength === 0 && passwordLength === 0) {
+      if (emailLength === 0 && passwordLength === 0) {
         clearInterval(intervalId);
       }
     }, interval);
   };
 
+
+  
   return (
     <div className="w-screen h-screen flex flex-col justify-center basic bg-slate-50">
       <div className="w-[400px] h-[600px] mx-auto rounded-[20px] shadow-xl flex flex-col justify-between px-8 pt-6 pb-16 bg-white cursor-default">
