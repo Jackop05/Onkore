@@ -1,14 +1,4 @@
-const weekDays = [
-    "Poniedziałek",
-    "Wtorek",
-    "Środa",
-    "Czwartek",
-    "Piątek",
-    "Sobota",
-    "Niedziela",
-];
-
-const availability = {
+export default HoursData = {
     "Poniedziałek": {
         "6": 0,
         "7": 0,

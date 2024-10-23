@@ -1,21 +1,15 @@
 import React from 'react'
+import HoverLetters from '../../logic/HoverLetters'
 
 const AboutUs = () => {
   return (
-    <div className="bg-white relative text-center mb-10 w-screen h-screen flex flex-col justify-center">
-        <div className="mb-10">
-          <h2 className="text-[36px] text-neonblue font-bold drop-shadow-lg mb-6">
-            O nas
+    <div className="bg-white mt-[50px] text-center mb-10 w-screen h-screen flex flex-col justify-center basic">
+        <div className="mx-auto">
+          <h2 className="text-[80px] text-neonblue font-bold drop-shadow-lg mb-6 cursor-default titles">
+            {HoverLetters("O nas")}
           </h2>
-          <p className="text-gray-800 font-medium">
-            Jesteśmy zespołem doświadczonych nauczycieli, którzy wierzą, że każdy ma swój sposób nauki. Nasza platforma łączy nowoczesne technologie z indywidualnym podejściem do każdego ucznia.
-          </p>
-          <ul className="list-disc pl-6 mt-4 text-gray-700">
-            <li>Indywidualne podejście</li>
-            <li>Elastyczne godziny</li>
-            <li>Doświadczeni nauczyciele</li>
-            <li>Przystępne ceny</li>
-          </ul>
+          <div className="text-gray-800 text-3xl mx-auto mb-4 max-w-[600px]">Jesteśmy zespołem doświadczonych nauczycieli, którzy wierzą, że każdy ma swój sposób nauki.</div>
+          <div className="text-gray-800 text-3xl mx-auto max-w-[600px]">Nasza platforma łączy nowoczesne technologie z indywidualnym podejściem do każdego ucznia.</div>
         </div>
     </div>
   )

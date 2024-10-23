@@ -8,7 +8,7 @@ import Base from './pages/Base';
 function App() {
   return (
     <Router>
-      <div className="w-screen h-screen">
+      <div className="w-screen h-screen text-slate-900">
         <Routes>
           <Route path="/" element={<Base />} />
           <Route path="/logowanie" element={<Login />} />
