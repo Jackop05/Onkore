@@ -1,4 +1,4 @@
-export default HoursData = {
+const HoursData = {
     "Poniedziałek": {
         "6": 0,
         "7": 0,
@@ -126,3 +126,5 @@ export default HoursData = {
         "21": 1,
     },
 };
+
+export default HoursData;
