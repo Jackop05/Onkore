@@ -14,7 +14,7 @@ const Courses = {
         },
         "matura_rozszerzona": {
             name: "Fizyka przygotowanie do matury rozszerzonej",
-            price: 90,
+            price: 80,
             description: "Korepetycje z fizyki",
             iconIndex: 2,
         },
@@ -46,7 +46,7 @@ const Courses = {
         },
         "matura_rozszerzona": {
             name: "Matematyka przygotowanie do matury rozszerzonej",
-            price: 90,
+            price: 80,
             description: "Korepetycje z matematyki",
             iconIndex: 7,
         },
@@ -66,7 +66,7 @@ const Courses = {
         },
         "liceum": {
             name: "Angielski liceum",
-            price: 65,
+            price: 60,
             description: "Korepetycje z angielskiego",
             iconIndex: 10,
         },
