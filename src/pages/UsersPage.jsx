@@ -6,7 +6,7 @@ import Teachers from './usersPage/Teachers';
 import Offers from './usersPage/Offers';
 import AboutUs from './usersPage/AboutUs';
 import Footer from './usersPage/Footer';
-// import MyCourses from './usersPage/MyCourses';
+import MyCourses from './usersPage/MyCourses';
 
 
 
@@ -17,9 +17,7 @@ const UsersPage = () => {
         <Navbar />
         <Hero />
         <Teachers />
-        { 
-          // <MyCourses /> 
-        }
+        <MyCourses />
         <Offers />
         <AboutUs />
         <Footer />

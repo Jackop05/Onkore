@@ -1,5 +1,6 @@
 import React from 'react';
 import Courses from '../../logic/Courses';
+import HoverLetters from '../../logic/HoverLetters';
 
 
 
@@ -41,8 +42,9 @@ const Offers = () => {
   });
 
   return (
-    <div id="offers" className='bg-slate-50 w-screen text-center mb-10 flex justify-center basic py-32 px-4'>
+    <div id="offers" className='bg-slate-100 w-screen text-center mb-10 flex justify-center basic py-32 px-4'>
       <div>
+        <div className="text-[40px] mb-8 titles font-bold">{HoverLetters("Znajdź coś dla siebie")}</div>
         {renderCourses}
       </div>
     </div>
