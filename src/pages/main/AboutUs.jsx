@@ -3,7 +3,7 @@ import HoverLetters from '../../logic/HoverLetters'
 
 const AboutUs = () => {
   return (
-    <div className="bg-white mt-[50px] text-center mb-10 w-screen h-screen flex flex-col justify-center basic">
+    <div id="about-us" className="bg-skate-100 mt-[50px] text-center mb-10 w-screen h-screen flex flex-col justify-center basic">
         <div className="mx-auto">
           <h2 className="text-[80px] text-neonblue font-bold drop-shadow-lg mb-6 cursor-default titles">
             {HoverLetters("O nas")}

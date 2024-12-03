@@ -5,7 +5,7 @@ import HoverLetters from '../../logic/HoverLetters'
 
 const Advantages = () => {
   return (
-    <div className='bg-slate-100 text-center mb-10 w-screen h-screen flex flex-col justify-center basic'>
+    <div id="advantages" className='bg-slate-100 text-center mb-10 w-screen h-screen flex flex-col justify-center basic'>
         <div className='text-[50px] flex gap-4 justify-center mb-4'>Dołącz do <span className='titles font-bold text-[60px] text-neonblue flex cursor-default'>{HoverLetters("onkore")}<span className='text-slate-900'>!</span></span></div>
         <ul className="pl-6 mt-4 mb-24 text-gray-700 list-none flex flex-center mx-auto max-w-[1200px] gap-6 font-semibold text-lg">
             <li>Chcesz poprawić ocenę?</li>

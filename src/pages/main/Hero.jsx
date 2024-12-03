@@ -4,8 +4,15 @@ import HoverLetters from '../../logic/HoverLetters'
 
 
 const Hero = () => {
+    const scrollToSection = (id) => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
   return (
-    <div className='bg-slate-50 relative text-center w-screen h-screen flex flex-col justify-center top-16 basic'>
+    <div id="hero" className='bg-slate-50 relative text-center w-screen h-screen flex flex-col justify-center top-16 basic'>
         <div className='max-w-[700px] mx-auto'>
             <div className="font-bold text-neonblue drop-shadow-lg mb-10 titles">
                 <div className='text-[80px]'>
@@ -18,7 +25,12 @@ const Hero = () => {
             </div>
             <p className="text-[24px] text-gray-800 font-medium mb-10 max-w-[550px] mx-auto">Profesjonalne korepetycje online z najlepszymi nauczycielami. Ucz się w swoim tempie i odkryj swój potencjał z nami!</p>
             <button className="w-full text-white py-3 rounded-lg bg-neonblue shadow-sm transition-all duration-150 hover:scale-105 max-w-[350px]">
-                <div className="drop-shadow-md text-xl">Zapisz się na zajęcia!</div>
+            <div
+                className="drop-shadow-md text-xl"
+                onClick={() => scrollToSection('offers')}
+            >
+                Zapisz się na kurs!
+            </div>
             </button>
         </div>
     </div>

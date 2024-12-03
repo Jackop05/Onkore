@@ -4,6 +4,12 @@
 
 
 
+html {
+  scroll-behavior: smooth;
+}
+
+
+
 .notes {
     font-family: "Edu AU VIC WA NT Guides", cursive;
     font-optical-sizing: auto;

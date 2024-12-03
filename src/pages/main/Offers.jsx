@@ -1,6 +1,7 @@
 import React from 'react';
 import Courses from '../../logic/Courses';
-import { BiMath } from "react-icons/bi";
+
+
 
 const Offers = () => {
   const images = ["./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png"]
@@ -13,17 +14,13 @@ const Offers = () => {
       index++;
 
       return (
-        <div key={courseKey} className='min-w-[800px] max-w-[1000px] flex justify-between border-2 border-solid border-slate-900 rounded-[35px] px-8 py-4'>
+        <div key={courseKey} className='bg-white min-w-[800px] max-w-[1000px] flex justify-between border-2 border-solid border-slate-900 rounded-[35px] px-8 py-4'>
           <div className='flex gap-8'>
             <div className='flex flex-col gap-4 justify-center'>
               <div className='text-3xl font-bold text-left max-w-[600px]'>{course.name.split(" ")[0]} <span className='text-2xl text-gray-600 text-left max-w-[600px] ml-4'>{course.name.split(" ").slice(1).join(" ")}</span></div>
               <div className='text-2xl text-left'>{course.price} PLN</div>
             </div>
-            <div className='flex flex-col justify-center'>
-              {/*
-                <div className='text-[70px] text-left'>{icons[course.iconIndex]}</div>
-              */}
-                
+            <div className='flex flex-col justify-center'>                
             </div>
           </div>
           <div className='flex gap-8'>
@@ -44,8 +41,8 @@ const Offers = () => {
   });
 
   return (
-    <div className='bg-white w-screen text-center mb-10 flex justify-center basic py-20 px-4'>
-      <div className=''>
+    <div id="offers" className='bg-slate-50 w-screen text-center mb-10 flex justify-center basic py-32 px-4'>
+      <div>
         {renderCourses}
       </div>
     </div>
