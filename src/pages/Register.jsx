@@ -31,7 +31,7 @@ const Register = () => {
   
   return (
     <div className="w-screen h-screen flex flex-col justify-center basic bg-slate-50">
-      <div className="w-[400px] h-[600px] mx-auto rounded-[20px] shadow-xl flex flex-col justify-between px-8 pt-6 pb-16 bg-white cursor-default">
+      <div className="w-[400px] h-[600px] mx-auto rounded-[20px] shadow-xl flex flex-col justify-around px-8 pt-6 pb-12 bg-white cursor-default">
         <div className='titles text-[50px] text-center mb-8 font-bold text-neonblue drop-shadow-lg'>
           <span className="hover:text-neongreen transition-all duration-100">R</span>
           <span className="hover:text-neongreen transition-all duration-100">e</span>
