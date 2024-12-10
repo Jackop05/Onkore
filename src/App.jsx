@@ -6,6 +6,9 @@ import NoPath from './pages/NoPath';
 import Base from './pages/Base';
 import UsersPage from './pages/UsersPage';
 
+import UserCourse from './pages/UserCourse';
+import BuyCourse from './pages/BuyCourse';
+
 function App() {
   return (
     <Router>
@@ -15,7 +18,10 @@ function App() {
           <Route path="/logowanie" element={<Login />} />
           <Route path="/rejestracja" element={<Register />} />
           <Route path="/user/:username" element={<UsersPage />} />
+          <Route path="/user/user-course/:username" element={<UserCourse />} />
           <Route path="*" element={<NoPath />} />
+
+          <Route path="/test" element={<BuyCourse />} />
         </Routes>
       </div>
     </Router>
