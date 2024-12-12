@@ -7,10 +7,6 @@ const UserCourse = () => {
       <div className="bg-neonblue text-white py-6 px-60">
         <h1 className="text-5xl font-bold drop-shadow-md titles">Przygotowanie do matury</h1>
         <p className="mt-4 text-3xl font-bold drop-shadow-md titles">Matematyka</p>
-        <div className="mt-4 flex items-center drop-shadow-md">
-          <span className="bg-neongreen text-black px-3 py-1 rounded-md text-sm font-semibold mr-2">Bestseller</span>
-          <span className="text-sm">4.4 <span className="">★</span> (106 ocen)</span>
-        </div>
       </div>
 
       {/* Main Content Section */}
