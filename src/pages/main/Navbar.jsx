@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div
       id="navbar"
-      className="text-slate-900 w-screen px-12 py-4 flex justify-between h-[80px] shadow-xl rounded-3xl bg-white fixed z-50"
+      className="text-slate-900 w-screen px-12 py-4 flex justify-between h-[80px] shadow-xl rounded-b-xl bg-white fixed z-50"
     >
       <div className="items-center">
         <img src="./images/logoOnkoreIcon.png" alt="onkore" className="h-[42px]" />

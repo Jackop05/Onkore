@@ -5,9 +5,10 @@ import Register from './pages/Register';
 import NoPath from './pages/NoPath';
 import Base from './pages/Base';
 import UsersPage from './pages/UsersPage';
-
 import UserCourse from './pages/UserCourse';
 import BuyCourse from './pages/BuyCourse';
+
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -19,9 +20,11 @@ function App() {
           <Route path="/rejestracja" element={<Register />} />
           <Route path="/user/:username" element={<UsersPage />} />
           <Route path="/user/user-course/:username" element={<UserCourse />} />
-          <Route path="*" element={<NoPath />} />
+          <Route path="/user/buy-course/:username" element={<BuyCourse />} />
 
-          <Route path="/test" element={<BuyCourse />} />
+          <Route path="/admin/:adminname" element={<Admin />} />
+
+          <Route path="*" element={<NoPath />} />
         </Routes>
       </div>
     </Router>
