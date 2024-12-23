@@ -2,7 +2,21 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import HoverLetters from "../../logic/HoverLetters";
 
-const Hero = ({ teacherName, offers, students }) => {
+const Hero = () => {
+    const offers = [
+        { subject: "Matematyka - klasa 7", details: "Lekcja próbna z Janem Kowalskim" },
+        { subject: "Język angielski - matura", details: "Indywidualne lekcje z Anną Nowak" },
+        { subject: "Fizyka - liceum", details: "Korepetycje dla Piotra Wiśniewskiego" },
+      ];
+
+      const students = [
+        { name: "Anna Nowak", subject: "Matematyka" },
+        { name: "Jan Kowalski", subject: "Matematyka" },
+        { name: "Piotr Wiśniewski", subject: "Matematyka" },
+      ];
+      
+      const teacherName = "New Teacher";
+    
     const [availability, setAvailability] = useState([]);
 
     const handleAddAvailability = () => {
@@ -124,7 +138,7 @@ const Hero = ({ teacherName, offers, students }) => {
                                 <p className="text-lg font-medium">{offer.subject}</p>
                                 <p className="text-gray-600">{offer.details}</p>
                             </div>
-                            <button className="px-4 py-2 bg-neonblue text-white rounded-lg hover:bg-blue-500">
+                            <button className="px-4 py-2 bg-neonblue text-white rounded-lg font-bold tracking-wide hover:bg-blue-500">
                             Zaakceptuj
                             </button>
                         </div>
@@ -144,10 +158,10 @@ const Hero = ({ teacherName, offers, students }) => {
                             <li key={index} className="py-4 flex justify-between items-center">
                                 <div>
                                     <p className="text-lg font-medium text-neonblue">{student.name}</p>
-                                    <p className="text-gray-600">{student.contact}</p>
+                                    <p className="text-gray-600">{student.subject}</p>
                                 </div>
-                                <button className="px-4 py-2 bg-neongreen text-black rounded-lg hover:bg-green-400">
-                                    Wyślij wiadomość
+                                <button className="px-4 py-2 bg-neongreen text-black rounded-lg font-bold tracking-wide hover:bg-green-400">
+                                    Zobcz profil
                                 </button>
                             </li>
                         ))}

@@ -2,7 +2,7 @@ import React from 'react';
 
 const UserCourse = () => {
   return (
-    <div className="h-screen w-screen bg-gray-100 mt-[20vh] basic relative">
+    <div className="h-screen w-screen bg-gray-100 pt-[20vh] basic relative overflow-x-hidden">
       {/* Header Section */}
       <div className="bg-neonblue text-white py-6 px-60">
         <h1 className="text-5xl font-bold drop-shadow-md titles">Przygotowanie do matury</h1>
@@ -88,23 +88,7 @@ const UserCourse = () => {
               </a>
             </div>
           </div>
-        </div>
-        
-
-        {/* Right Section */}
-        <div className="md:w-1/3 md:ml-10 mt-8 md:mt-0 fixed top-[300px] right-[20px]">
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <img
-              src="https://via.placeholder.com/300x200"
-              alt="Course Preview"
-              className="w-full rounded-lg mb-4"
-            />
-            <p className="text-gray-700 text-xl">
-              Math lectures description to make user know what this is about. Comprehensive and engaging content designed to
-              help you excel in your studies.
-            </p>
-          </div>
-        </div>
+        </div>   
       </div>
     </div>
   );
