@@ -11,7 +11,6 @@ const UserCourse = () => {
 
       {/* Main Content Section */}
       <div className="flex flex-col md:flex-row px-10 py-8">
-        {/* Left Section */}
         <div className="flex-1">
           <div className="bg-white rounded-lg shadow-md p-6 max-w-[1200px]">
             <h2 className="px-6 text-2xl mb-4 font-bold">Zrealizowane tematy:</h2>
