@@ -20,11 +20,11 @@ const Offers = () => {
   console.log(subjectCoursesData)
 
   const images = [
-    "./images/subjectIcon0.png", "./images/subjectIcon1.png", "./images/subjectIcon2.png",
-    "./images/subjectIcon3.png", "./images/subjectIcon4.png", "./images/subjectIcon5.png",
-    "./images/subjectIcon6.png", "./images/subjectIcon7.png", "./images/subjectIcon8.png",
-    "./images/subjectIcon9.png", "./images/subjectIcon10.png", "./images/subjectIcon11.png",
-    "./images/subjectIcon12.png"
+    "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png",
+    "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcons/mathIcon1.png",
+    "./images/subjectIcons/mathIcon2.png", "./images/subjectIcons/mathIcon3.png", "./images/subjectIcons/mathIcon4.png",
+    "./images/subjectIcons/mathIcon5.png", "./images/subjectIcon.png", "./images/subjectIcon.png",
+    "./images/subjectIcon.png"
   ];
 
   const renderCourses = () => {
@@ -35,25 +35,22 @@ const Offers = () => {
     return subjectCoursesData.map((course, index) => (
       <div
         key={course.id}
-        className="bg-white min-w-[800px] max-w-[1000px] flex justify-between border-2 border-solid border-slate-900 rounded-[35px] px-8 py-4 mb-6"
+        className={`bg-white min-w-[800px] max-w-[1000px] flex justify-between border-2 border-solid border-slate-900 rounded-[35px] px-8 py-4 mb-6 ${course.level == "szkoła podstawowa" ? "mt-16" : ""}`}
       >
         <div className="flex gap-8">
-          <div className="flex flex-col gap-4 justify-center">
+          <div className="flex flex-col gap-6 justify-center">
             <div className="text-3xl font-bold text-left max-w-[600px]">
               {course.subject}{" "}
-              <span className="text-2xl text-gray-600 text-left max-w-[600px] ml-4">
+              <span className="text-2xl text-gray-600 text-left max-w-[600px] ml-2">
                 {course.level}
               </span>
-            </div>
-            <div className="text-xl text-gray-700 text-left">
-              {course.description}
             </div>
             <div className="text-2xl text-left font-bold">{course.price} PLN</div>
           </div>
         </div>
         <div className="flex gap-8">
           <img
-            className="w-32 h-32"
+            className="h-20 self-center"
             src={images[course.iconIndex] || "./images/defaultIcon.png"} // Fallback to a default image if iconIndex is invalid
             alt={`${course.subject} icon`}
           />
