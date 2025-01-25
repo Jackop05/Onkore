@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div id="footer" className='bg-[url("./images/footer.png")] w-full h-[250px] text-white'>
+    <div id="footer" className="bg-[url('/images/footer.png')] bg-cover bg-center w-full h-[300px] text-white relative">
         <div className='bg-black/70 w-full h-full px-20 flex justify-between'>
             <div className='flex flex-col justify-center gap-4 text-2xl'>
                 <a href="https://facebook.com" target="_blank" class="flex items-center space-x-2 text-blue-600 hover:underline">
@@ -43,7 +43,7 @@ const Footer = () => {
             <div className='flex flex-col justify-center gap-4 text-lg'>
                 <div className=''>
                     <div className='text-2xl'>Email</div>
-                    <div className=' italic'>● Jakubnyrbotzs@gmail.com</div>
+                    <div className=' italic'>● OnkoreInfo@gmail.com</div>
                 </div>
                 <div className=''>
                     <div className='text-2xl'>Kontakt</div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import HoverLetters from '../../logic/HoverLetters';
 
 const Offers = () => {
@@ -17,14 +18,13 @@ const Offers = () => {
       .then((data) => setSubjectCoursesData(data))
       .catch((err) => setError(err.message));
   }, []);
-  console.log(subjectCoursesData)
 
   const images = [
-    "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcon.png",
-    "./images/subjectIcon.png", "./images/subjectIcon.png", "./images/subjectIcons/mathIcon1.png",
+    "./images/subjectIcons/englishIcon1.png", "./images/subjectIcons/englishIcon2.png", "./images/subjectIcons/englishIcon3.png",
+    "./images/subjectIcons/englishIcon4.png", "./images/subjectIcons/englishIcon5.png", "./images/subjectIcons/mathIcon1.png",
     "./images/subjectIcons/mathIcon2.png", "./images/subjectIcons/mathIcon3.png", "./images/subjectIcons/mathIcon4.png",
-    "./images/subjectIcons/mathIcon5.png", "./images/subjectIcon.png", "./images/subjectIcon.png",
-    "./images/subjectIcon.png"
+    "./images/subjectIcons/mathIcon5.png", "./images/subjectIcons/physicsIcon1.png", "./images/subjectIcons/physicsIcon2.png",
+    "./images/subjectIcons/physicsIcon3.png"
   ];
 
   const renderCourses = () => {
@@ -55,9 +55,12 @@ const Offers = () => {
             alt={`${course.subject} icon`}
           />
           <div className="flex flex-col justify-center">
-            <div className="bg-neonblue px-8 py-4 rounded-2xl text-xl font-bold shadow-sm transition-all duration-150 hover:scale-110 max-w-[400px] cursor-pointer">
+            <Link 
+              to={`/user/buy-course/:username/${course.id}`}
+              className="bg-neonblue px-8 py-4 rounded-2xl text-xl font-bold shadow-sm transition-all duration-150 hover:scale-110 max-w-[400px] cursor-pointer"
+            >
               Kup lekcje
-            </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -67,10 +70,10 @@ const Offers = () => {
   return (
     <div
       id="offers"
-      className="bg-slate-50 w-screen text-center mb-10 flex justify-center basic py-32 px-4"
+      className="bg-slate-50 w-screen text-center flex justify-center basic py-32 px-4"
     >
       <div>
-        <div className="text-[40px] mb-8 titles font-bold">
+        <div className="text-[50px] mb-8 titles font-bold">
           {HoverLetters("Znajdź coś dla siebie")}
         </div>
         {error && <p className="text-red-500">{error}</p>} {/* Display error if any */}

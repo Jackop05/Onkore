@@ -16,7 +16,9 @@ const Base = () => {
         <Hero />
         <Advantages />
         <Offers />
-        <AboutUs />
+        { 
+            // <AboutUs />
+        }
         <Footer />
     </div>
   )
