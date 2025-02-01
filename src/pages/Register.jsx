@@ -1,31 +1,58 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [error, setError] = useState(false);
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
 
-    let emailLength = email.length;
-    let passwordLength = password.length;
-    
-    const interval = 1000 / Math.max(emailLength, passwordLength);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("Invalid email format!");
+        return;
+    }
 
-    const intervalId = setInterval(() => {
-      if (emailLength > 0) {
-        setEmail(email.slice(0, --emailLength));
-      }
-      if (passwordLength > 0) {
-        setPassword(password.slice(0, --passwordLength));
-      }
+    const userData = {
+        username,
+        email,
+        password
+    };
 
-      if (emailLength === 0 && passwordLength === 0) {
-        clearInterval(intervalId);
-      }
-    }, interval);
+    try {
+        const response = await fetch("http://localhost:2020/api/user/register-user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        });
+
+        const result = await response.json(); 
+        console.log(JSON.stringify(result));
+
+        
+        if (!response.ok) {
+            setEmail('');
+            setPassword('');
+            setUsername('');
+            alert('Coś poszło nie tak...');
+            throw new Error(result);
+        }           
+          
+        alert('Zarejestrowano użytkownika');
+        navigate("/logowanie");    
+
+    } catch (error) {
+        console.error("Error:", error.message);
+    }
   };
+
 
 
   
@@ -47,6 +74,19 @@ const Register = () => {
         </div>
         <div>
           <form className='' onSubmit={(event) => onSubmit(event)}>
+          <div className="mb-4">
+                <label htmlFor="username" className="block text-gray-800 font-semibold mb-2">Username:</label>
+                <input
+                type="text"
+                id="username"
+                name="username"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                placeholder="Imie i nazwisko lub twoja nazwa użytkownika..."
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-neonblue"
+                required
+                />
+            </div>
             <div className="mb-4">
                 <label htmlFor="email" className="block text-gray-800 font-semibold mb-2">Email:</label>
                 <input
