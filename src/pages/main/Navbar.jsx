@@ -15,7 +15,7 @@ const Navbar = () => {
       className="text-slate-900 w-screen px-12 py-4 flex justify-between h-[80px] shadow-xl rounded-b-xl bg-white fixed z-50"
     >
       <div className="items-center">
-        <img src="./images/logoOnkoreIcon.png" alt="onkore" className="h-[42px]" />
+        <img src="../../images/logoOnkoreIcon.png" alt="onkore" className="h-[42px]" />
       </div>
       <div className="flex gap-16 text-2xl font-semibold items-center tracking-wide">
         <div

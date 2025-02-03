@@ -20,16 +20,16 @@ const Offers = () => {
   }, []);
 
   const images = [
-    "./images/subjectIcons/englishIcon1.png", "./images/subjectIcons/englishIcon2.png", "./images/subjectIcons/englishIcon3.png",
-    "./images/subjectIcons/englishIcon4.png", "./images/subjectIcons/englishIcon5.png", "./images/subjectIcons/mathIcon1.png",
-    "./images/subjectIcons/mathIcon2.png", "./images/subjectIcons/mathIcon3.png", "./images/subjectIcons/mathIcon4.png",
-    "./images/subjectIcons/mathIcon5.png", "./images/subjectIcons/physicsIcon1.png", "./images/subjectIcons/physicsIcon2.png",
-    "./images/subjectIcons/physicsIcon3.png"
+    "../../images/subjectIcons/englishIcon1.png", "../../images/subjectIcons/englishIcon2.png", "../../images/subjectIcons/englishIcon3.png",
+    "../../images/subjectIcons/englishIcon4.png", "../../images/subjectIcons/englishIcon5.png", "../../images/subjectIcons/mathIcon1.png",
+    "../../images/subjectIcons/mathIcon2.png", "../../images/subjectIcons/mathIcon3.png", "../../images/subjectIcons/mathIcon4.png",
+    "../../images/subjectIcons/mathIcon5.png", "../../images/subjectIcons/physicsIcon1.png", "../../images/subjectIcons/physicsIcon2.png",
+    "../../images/subjectIcons/physicsIcon3.png",
   ];
 
   const renderCourses = () => {
     if (!subjectCoursesData || subjectCoursesData.length === 0) {
-      return <p>No courses available.</p>; // Display a message if there's no data
+      return <p>No courses available.</p>;
     }
 
     return subjectCoursesData.map((course, index) => (

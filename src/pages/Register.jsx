@@ -39,13 +39,13 @@ const Register = () => {
         
         if (!response.ok) {
             setEmail('');
-            setPassword('');
+            setPassword('');  
             setUsername('');
-            alert('Coś poszło nie tak...');
+            alert(result.error);
             throw new Error(result);
         }           
-          
-        alert('Zarejestrowano użytkownika');
+        
+        alert(result.message);
         navigate("/logowanie");    
 
     } catch (error) {
