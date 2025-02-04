@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import Navbar from './main/Navbar';
+import Navbar from './usersPage/Navbar';
 import Hero from './main/Hero';
 import Offers from './main/Offers';
 import Footer from './main/Footer';
@@ -29,6 +29,7 @@ const UsersPage = () => {
       });
 
       if (!response.ok) {
+        navigate("/login");
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 

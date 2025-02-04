@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const BuyCourse = () => {
   const { courseId } = useParams();
+  const { userId } = useParams();
 
   const [availableDays, setAvailableDays] = useState([]);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -61,6 +62,52 @@ const BuyCourse = () => {
 
     return () => clearTimeout(timer); // Cleanup the previous timer on change
   }, [promoCode, courseId]);
+
+  const postCourse = async () => {
+    
+    try {
+      const formattedDates = selectedDates.map(date => {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const day = date.getDate().toString().padStart(2, "0");
+        const hours = selectedTime?.split(":")[0].padStart(2, "0"); // Extracting hours from selectedTime
+        const minutes = "00"; // Assuming minutes are always 00
+  
+        return `${year}-${month}-${day}-${hours}-${minutes}`;
+      });
+
+      console.log(formattedDates + " " + userId + " " + courseId + " " + additionalInfo);
+  
+      const response = await fetch("http://localhost:2020/api/user/post-course", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          course_id: courseId,
+          dates: formattedDates.join(", "), 
+          bonus_info: additionalInfo,
+          promo_code: promoCode,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Błąd podczas dodawania kursu");
+      }
+  
+      const data = await response.json();
+      return data; // Return response if needed
+    } catch (error) {
+      console.error("Error posting course:", error.message);
+      throw error;
+    }
+  };
+  
+  
+
+
+  
 
   const timeSlots = [
     "6:00 - 8:00",
@@ -240,7 +287,10 @@ const BuyCourse = () => {
           <span className="text-gray-500 text-lg">{promoCode || "--"}</span>
         </p>
         <p className="text-gray-700 font-bold mt-4">Cena: 200 PLN</p>
-        <button className="w-full mt-4 px-4 py-2 bg-neonblue text-white rounded-lg hover:bg-blue-500">
+        <button 
+          className="w-full mt-4 px-4 py-2 bg-neonblue text-white rounded-lg hover:bg-blue-500"
+              onClick={() => {postCourse()}}
+        >
           Przejdź do płatności
         </button>
       </div>

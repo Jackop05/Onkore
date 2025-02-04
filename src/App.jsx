@@ -23,7 +23,7 @@ function App() {
 
           <Route path="/user/:username" element={<UsersPage />} />
           <Route path="/user/user-course/:username/:courseId" element={<UserCourse />} />
-          <Route path="/user/buy-course/:username/:courseId" element={<BuyCourse />} />
+          <Route path="/user/buy-course/:userId/:courseId" element={<BuyCourse />} />
 
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/rejestracja" element={<TeachersRegister />} />

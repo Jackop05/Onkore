@@ -12,7 +12,7 @@ const Hero = () => {
     return (
         <div id="hero" className="relative text-center w-screen h-[80vh] flex flex-col justify-center top-16 basic mb-52">
             {/* Blurred Background */}
-            <div className="absolute inset-0 bg-[url('./images/background-main.png')] bg-cover bg-center filter blur-md h-[80vh]"></div>
+            <div className="absolute inset-0 bg-[url('../images/background-main.png')] bg-cover bg-center filter blur-md h-[80vh]"></div>
 
             {/* Foreground Content */}
             <div className="relative z-10 max-w-[700px] mx-auto bg-white rounded-3xl px-20 py-12 shadow-lg">
