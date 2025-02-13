@@ -9,9 +9,6 @@ import Teachers from './usersPage/Teachers';
 import AboutUs from './usersPage/AboutUs';
 import MyCourses from './usersPage/MyCourses';
 
-
-
-
 const UsersPage = () => {
   const navigate = useNavigate();
 
@@ -20,7 +17,7 @@ const UsersPage = () => {
   const [error, setError] = useState(null);
 
   const fetchUserData = async () => {
-    console.log('Fetching user data')
+    console.log('Fetching user data');
     try {
       const response = await fetch('http://localhost:2020/api/user/get-user-data', {
           method: 'GET',
@@ -36,9 +33,31 @@ const UsersPage = () => {
       const data = await response.json();
       setUserData(data);
       console.log(data);
-      
-      navigate(`/user/${data.username}`);
+    } catch (error) {
+      setError(error.message);
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
 
+    try {
+      const response = await fetch('http://localhost:2020/api/user/get-user-current-courses', {
+          method: 'GET',
+          credentials: 'include', // ✅ Allows cookies to be sent
+          headers: {  'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        navigate("/login");
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const courses = await response.json();
+      setUserData(prevData => ({
+        ...prevData,
+        currentCourses: courses 
+      }));
+      console.log(courses);
     } catch (error) {
       setError(error.message);
       console.log(error.message);
@@ -56,14 +75,11 @@ const UsersPage = () => {
         <Navbar />
         <Hero />
         <Teachers />
-        <MyCourses userData={userData} />
-        <Offers />
-        { 
-            // <AboutUs />
-        }
+        {userData && <MyCourses userData={userData} />} {/* ✅ Prevent errors if userData is null */}
+        {userData && <Offers userData={userData} />} {/* ✅ Prevent errors if userData is null */}
         <Footer />
     </div>
-  )
+  );
 }
 
-export default UsersPage
+export default UsersPage;

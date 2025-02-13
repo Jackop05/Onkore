@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import HoverLetters from '../../logic/HoverLetters';
 
-const Offers = () => {
+const Offers = ({ userData }) => {
   const [subjectCoursesData, setSubjectCoursesData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -56,7 +56,7 @@ const Offers = () => {
           />
           <div className="flex flex-col justify-center">
             <Link 
-              to={`/user/buy-course/:username/${course.id}`}
+              to={`/user/buy-course/${userData?.id}/${course.id}`}
               className="bg-neonblue px-8 py-4 rounded-2xl text-xl font-bold shadow-sm transition-all duration-150 hover:scale-110 max-w-[400px] cursor-pointer"
             >
               Kup lekcje

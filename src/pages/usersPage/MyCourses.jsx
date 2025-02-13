@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import HoverLetters from "../../logic/HoverLetters";
 
 const MyCourses = ({ userData }) => {
+  console.log(userData)
   if (!userData || !userData.currentCourses) {
     return <p className="text-center text-lg mt-6">Ładowanie Twoich kursów...</p>;
   }
+  console.log(userData.currentCourses);
 
   return (
     <div
@@ -18,7 +21,8 @@ const MyCourses = ({ userData }) => {
           <p className="text-gray-700">Nie masz jeszcze zapisanych kursów.</p>
         ) : (
           userData.currentCourses.map((course) => (
-            <div
+            <Link
+              to={`/user/user-course/${userData.username}/${course.id}`}
               key={course.id}
               className="bg-white mx-auto min-w-[800px] max-w-[1000px] flex justify-between border-2 border-solid border-slate-900 rounded-[35px] px-8 py-4 mb-6 cursor-pointer"
             >
@@ -34,15 +38,9 @@ const MyCourses = ({ userData }) => {
                 <div className="text-lg text-gray-500 text-left">
                   Poziom: {course.level}
                 </div>
-                <div className="text-lg text-gray-500 text-left">
-                  Prowadzący: {course.username}
-                </div>
-                <div className="text-lg text-gray-500 text-left">
-                  Cena: {course.price} PLN
-                </div>
               </div>
               <img alt="Course image" className="w-32 h-32" src="../../images/subjectIcon.png" />
-            </div>
+            </Link>
           ))
         )}
       </div>

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const BuyCourse = () => {
+  const navigate = useNavigate();
+
   const { courseId } = useParams();
   const { userId } = useParams();
 
@@ -97,7 +99,8 @@ const BuyCourse = () => {
       }
   
       const data = await response.json();
-      return data; // Return response if needed
+      
+      return data; 
     } catch (error) {
       console.error("Error posting course:", error.message);
       throw error;
