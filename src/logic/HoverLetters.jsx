@@ -1,11 +1,17 @@
-export default function HoverLetters(text, color="neongreen") {
+export default function HoverLetters(text, color = "neongreen") {
     return (
-        <div>
-            {Array.from(text).map((letter, index) => (
-                <span key={index} className={`hover:text-${color} transition-all duration-100 cursor-default `}>
-                    {letter === ' ' ? '\u00A0' : letter}
-                </span>
+      <div className="flex flex-wrap justify-center text-center w-full gap-1">
+        {text.split(" ").map((word, index) => (
+          <span key={index} className="flex">
+            {Array.from(word).map((letter, letterIndex) => (
+              <span key={letterIndex} className={`hover:text-${color} transition-all duration-100 cursor-default`}>
+                {letter}
+              </span>
             ))}
-        </div>
-    )
-};
+            <span className="w-2"></span> {/* Space between words */}
+          </span>
+        ))}
+      </div>
+    );
+  }
+  

@@ -4,7 +4,6 @@ import Navbar from './main/Navbar';
 import Hero from './main/Hero';
 import Advantages from './main/Advantages';
 import Offers from './main/Offers';
-import AboutUs from './main/AboutUs';
 import Footer from './main/Footer';
 
 
@@ -16,9 +15,6 @@ const Base = () => {
         <Hero />
         <Advantages />
         <Offers />
-        { 
-            // <AboutUs />
-        }
         <Footer />
     </div>
   )

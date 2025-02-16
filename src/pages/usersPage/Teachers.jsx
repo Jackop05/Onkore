@@ -11,44 +11,59 @@ const Teachers = () => {
       .catch((error) => console.error("Error fetching teachers:", error));
   }, []);
 
+  const profileImage = teachers.map((teacher) => {
+    return (teacher?.name?.trim().slice(-1).toLowerCase() === "a" ? "/images/noProfileImageale.png" : "/images/noProfileImageMale.png");
+  }) 
+
   return (
-    <div className="bg-slate-100 text-center mb-10 py-20 w-screen relative top-16">
-      <div className="text-[40px] mb-8 titles font-bold">
+    <div className="bg-slate-100 text-center mb-10 py-20 w-full relative top-16 px-4">
+      {/* Header */}
+      <div className="text-[32px] sm:text-[40px] mb-8 titles font-bold">
         {HoverLetters("Poznaj naszych korepetytorów")}
       </div>
-      <div id="teachers" className="flex flex-col justify-center gap-12">
-        {teachers?.map((teacher) => (
+
+      {/* Teachers List */}
+      <div id="teachers" className="flex flex-col items-center gap-12">
+        {teachers?.map((teacher, index) => (
           <div
             key={teacher.id}
-            className="bg-white h-[220px] w-[700px] mx-auto rounded-[15px] shadow-lg px-16 py-8 flex gap-12 justify-between"
+            className="bg-white w-full max-w-[900px] mx-auto rounded-2xl shadow-lg px-8 py-6 flex flex-col md:flex-row items-center gap-6 md:gap-12 transition-all duration-300"
           >
+            {/* Profile Image */}
             <img
-              className="w-40 h-40 rounded-full self-center"
+              className="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full"
               alt="Profile Image"
-              src="../images/noProfileImageMale.png"
+              src={profileImage[index]}
             />
 
-            <div className="text-left mr-12">
-              <div className="text-2xl font-bold mb-2 cursor-pointer">
+            {/* Teacher Info */}
+            <div className="text-center md:text-left flex flex-col gap-4 flex-1">
+              <div className="text-xl sm:text-2xl font-bold cursor-pointer">
                 {HoverLetters(teacher.name, "neonblue")}
               </div>
-              {teacher?.subjects?.map((subject, index) => (
-                <div key={index} className="flex gap-2">
-                  <img
-                    src="../images/temporarySubjectIcon.png"
-                    alt="Subject Icon"
-                    className="w-8 h-8"
-                  />
-                  <div className="self-center">{subject}</div>
-                </div>
-              ))}
+
+              {/* Subjects */}
+              <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                {teacher?.subjects?.map((subject, indexSubject) => (
+                  <div
+                    key={indexSubject}
+                    className="flex items-center bg-gray-100 px-3 py-1 rounded-lg shadow-sm"
+                  >
+                    <img
+                      src="../images/teachersSubjectIcon.png"
+                      alt="Subject Icon"
+                      className="w-10 h-10 sm:w-8 sm:h-8 mr-2"
+                    />
+                    <div className="text-sm sm:text-base">{subject}</div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="">
-              <div className="text-2xl font-bold mb-4">O mnie</div>
-              <div className="max-w-[300px] flex flex-col justify-center">
-                {teacher.about}
-              </div>
+            {/* About Section */}
+            <div className="w-full md:w-[300px] text-gray-700 text-md sm:text-base">
+              <div className="text-lg sm:text-2xl font-bold mb-2 md:mb-4 md:text-left">O mnie</div>
+              <div className="text-center md:text-left">{teacher.about}</div>
             </div>
           </div>
         ))}

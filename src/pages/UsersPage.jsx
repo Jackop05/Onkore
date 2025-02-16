@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import Navbar from './usersPage/Navbar';
-import Hero from './main/Hero';
-import Offers from './main/Offers';
-import Footer from './main/Footer';
+import Hero from './usersPage/Hero';
+import Offers from './usersPage/Offers';
+import Footer from './usersPage/Footer';
 import Teachers from './usersPage/Teachers';
-import AboutUs from './usersPage/AboutUs';
 import MyCourses from './usersPage/MyCourses';
 
 const UsersPage = () => {
@@ -48,7 +47,6 @@ const UsersPage = () => {
       });
 
       if (!response.ok) {
-        navigate("/login");
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
@@ -75,8 +73,8 @@ const UsersPage = () => {
         <Navbar />
         <Hero />
         <Teachers />
-        {userData && <MyCourses userData={userData} />} {/* ✅ Prevent errors if userData is null */}
-        {userData && <Offers userData={userData} />} {/* ✅ Prevent errors if userData is null */}
+        <MyCourses userData={userData} />
+        <Offers userData={userData} />
         <Footer />
     </div>
   );

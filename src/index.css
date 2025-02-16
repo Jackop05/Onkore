@@ -135,3 +135,12 @@ html {
   background-color: #303030;
   opacity: 8%;
 }
+
+
+
+.custom-scrollbar {
+  scrollbar-width: thin; 
+  scrollbar-color: transparent transparent;
+}
+
+

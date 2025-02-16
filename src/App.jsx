@@ -10,6 +10,7 @@ import BuyCourse from './pages/BuyCourse';
 
 import Admin from './pages/Admin';
 import TeachersCourse from './pages/admin/TeachersCourse';
+import TeachersLogin from './pages/admin/TeachersLogin';
 import TeachersRegister from './pages/admin/TeachersRegister';
 
 function App() {
@@ -20,17 +21,26 @@ function App() {
           <Route path="/" element={<Base />} />
           <Route path="/logowanie" element={<Login />} />
           <Route path="/rejestracja" element={<Register />} />
+          {
+            // Done
+          }
 
           <Route path="/user/:username" element={<UsersPage />} />
           <Route path="/user/user-course/:username/:courseId" element={<UserCourse />} />
-          <Route path="/user/buy-course/:userId/:courseId" element={<BuyCourse />} />
+          <Route path="/user/buy-course/:username/:courseId" element={<BuyCourse />} />
+          {
+            // Done
+          }
 
-          <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin/logowanie" element={<TeachersLogin />} />
           <Route path="/admin/rejestracja" element={<TeachersRegister />} />
           <Route path="/admin/:adminname" element={<Admin />} />
           <Route path="/admin/user-course-admin-view/:adminname" element={<TeachersCourse />} />
 
-          <Route path="*" element={<NoPath />} />
+          <Route path="*" element={<NoPath />} />     
+          { 
+            // Done
+          }
         </Routes>
       </div>
     </Router>
