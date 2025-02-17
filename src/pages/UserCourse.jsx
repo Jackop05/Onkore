@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa"; 
 
 const UserCourse = () => {
-  const { courseId } = useParams();
+  const { courseId, username } = useParams();
 
   const [courseData, setCourseData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -49,18 +50,27 @@ const UserCourse = () => {
           minute: "2-digit",
         })}
       </span>
-    )
-  }
+    );
+  };
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 py-12 px-4 flex flex-col items-center cursor-default overflow-x-hidden">
+    <div className="w-full min-h-screen bg-gray-100 py-12 px-4 flex flex-col items-center cursor-default overflow-x-hidden relative">
+      {/* Home Icon */}
+      <Link
+        to={`/user/${username}`}
+        className="absolute top-6 left-6 z-50 bg-white p-3 rounded-full shadow-lg hover:bg-gray-200 transition"
+      >
+        <FaHome className="w-6 h-6 text-neonblue z-50" />
+      </Link>
 
-
-      <div className="absolute inset-0 w-full h-full bg-cover bg-center filter blur-lg" style={{ backgroundImage: "url('/images/background-main.png')" }}></div>
+      <div
+        className="absolute inset-0 w-full h-full bg-cover bg-center filter blur-lg"
+        style={{ backgroundImage: "url('/images/background-main.png')" }}
+      ></div>
       <div className="absolute inset-0 bg-black bg-cover opacity-10 bg-center filter blur-lg h-full z-10"></div>
 
       {/* Header */}
-      <div className="bg-neonblue text-white py-8 px-6 md:px-20 rounded-xl shadow-lg text-center w-full max-w-[1100px] z-50">
+      <div className="bg-neonblue text-white py-8 px-6 md:px-20 rounded-xl shadow-lg text-center w-full max-w-[1100px] z-40">
         <div>
           <h1 className="text-3xl sm:text-5xl font-bold drop-shadow-md">
             {courseData?.description || "Ładowanie..."}
@@ -68,9 +78,6 @@ const UserCourse = () => {
           <p className="mt-2 sm:mt-4 text-lg sm:text-2xl font-semibold">
             {courseData?.subject || ""}
           </p>
-        </div>
-        <div>
-          <img />
         </div>
       </div>
 
@@ -80,8 +87,17 @@ const UserCourse = () => {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-bold mb-4">Zrealizowane tematy:</h2>
           <div className="flex flex-wrap gap-4">
-            {["Kinematyka", "Dynamika", "Praca, moc, energia", "Ruch drgający", "Termodynamika"].map((topic, index) => (
-              <span key={index} className="bg-neonblue text-white px-6 py-2 rounded-xl text-lg shadow-md">
+            {[
+              "Kinematyka",
+              "Dynamika",
+              "Praca, moc, energia",
+              "Ruch drgający",
+              "Termodynamika",
+            ].map((topic, index) => (
+              <span
+                key={index}
+                className="bg-neonblue text-white px-6 py-2 rounded-xl text-lg shadow-md"
+              >
                 {topic}
               </span>
             ))}
@@ -98,14 +114,18 @@ const UserCourse = () => {
                   key={index}
                   className="flex flex-col sm:flex-row sm:items-center justify-between bg-gray-200 p-4 rounded-lg shadow-md"
                 >
-                  {dateFormatter((lesson.lessonDate))}
+                  {dateFormatter(lesson.lessonDate)}
                   <div className="flex flex-col sm:flex-row gap-2 md:gap-8 mt-2 sm:mt-0">
-                    {lesson.link != null &&
-                      <span className="text-md text-gray-700 self-center my-4"><Link to={lesson.link}>{lesson.link}</Link></span>
-                    }
-                    {lesson.link == null &&
-                       <span className="text-md text-gray-700 self-center my-4">{lesson.status || "Oczekuje na korepetytora"}</span>
-                    }
+                    {lesson.link != null && (
+                      <span className="text-md text-gray-700 self-center my-4">
+                        <Link to={lesson.link}>{lesson.link}</Link>
+                      </span>
+                    )}
+                    {lesson.link == null && (
+                      <span className="text-md text-gray-700 self-center my-4">
+                        {lesson.status || "Oczekuje na korepetytora"}
+                      </span>
+                    )}
                     <button className="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition">
                       Anuluj zajęcia
                     </button>
@@ -129,7 +149,11 @@ const UserCourse = () => {
                 className="flex items-center bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition text-lg font-semibold shadow-md"
                 download
               >
-                <img src="https://img.icons8.com/color/48/000000/pdf.png" alt="PDF Icon" className="w-6 h-6 mr-3" />
+                <img
+                  src="https://img.icons8.com/color/48/000000/pdf.png"
+                  alt="PDF Icon"
+                  className="w-6 h-6 mr-3"
+                />
                 {pdf}
               </a>
             ))}

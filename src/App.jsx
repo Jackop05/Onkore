@@ -21,26 +21,17 @@ function App() {
           <Route path="/" element={<Base />} />
           <Route path="/logowanie" element={<Login />} />
           <Route path="/rejestracja" element={<Register />} />
-          {
-            // Done
-          }
 
           <Route path="/user/:username" element={<UsersPage />} />
           <Route path="/user/user-course/:username/:courseId" element={<UserCourse />} />
           <Route path="/user/buy-course/:username/:courseId" element={<BuyCourse />} />
-          {
-            // Done
-          }
 
           <Route path="/admin/logowanie" element={<TeachersLogin />} />
           <Route path="/admin/rejestracja" element={<TeachersRegister />} />
           <Route path="/admin/:adminname" element={<Admin />} />
-          <Route path="/admin/user-course-admin-view/:adminname" element={<TeachersCourse />} />
+          <Route path="/admin/user-course-admin-view/:adminname/:courseId" element={<TeachersCourse />} />
 
           <Route path="*" element={<NoPath />} />     
-          { 
-            // Done
-          }
         </Routes>
       </div>
     </Router>

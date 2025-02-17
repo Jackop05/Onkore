@@ -1,162 +1,138 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
 
 const TeachersCourse = () => {
-  const [topics, setTopics] = useState(["Kinematyka", "Dynamika", "Praca, moc, energia"]);
-  const [newTopic, setNewTopic] = useState("");
-  const [pdfs, setPdfs] = useState([
-    { name: "Pdf1", link: "/sample_test_pdf1.pdf" },
-    { name: "Pdf2", link: "/sample_test_pdf2.pdf" },
-  ]);
+  const { adminname, courseId } = useParams();
+  const [lessonDates, setLessonDates] = useState([]);
+  const [pdfs, setPdfs] = useState([]);
 
-  const handleAddTopic = () => {
-    if (newTopic.trim()) {
-      setTopics([...topics, newTopic]);
-      setNewTopic("");
+  useEffect(() => {
+    fetchCourseData();
+  }, []);
+
+  const fetchCourseData = async () => {
+
+    try {
+      const response = await fetch(`http://localhost:2020/api/user/get-single-user-current-course?courseId=${courseId}`, {
+        method: "GET",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+      const data = await response.json();
+      setLessonDates(data.lessonDates || []);
+      setPdfs(data.pdfs || []);
+    } catch (error) {
+      console.error("Error fetching course data:", error);
     }
   };
 
-  const handleRemoveTopic = (index) => {
-    setTopics(topics.filter((_, i) => i !== index));
-  };
+  // ✅ Cancel Lesson
+  const handleCancelLesson = async (lessonId) => {
+    const isConfirmed = window.confirm("Czy na pewno chcesz odwołać tę lekcję?");
+    if (!isConfirmed) return; 
 
-  const handleAddPdf = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const file = formData.get("file");
-    if (file) {
-      const newPdf = { name: file.name, link: URL.createObjectURL(file) };
-      setPdfs([...pdfs, newPdf]);
+    try {
+      const response = await fetch(`http://localhost:2020/api/admin/cancel-lesson`, {
+        method: "DELETE",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ courseId, lessonId }),
+      });
+
+      if (!response.ok) throw new Error("Failed to cancel lesson");
+
+      // Update lesson status locally
+      setLessonDates((prev) =>
+        prev.map((lesson) =>
+          lesson.id === lessonId ? { ...lesson, status: "odwołane", link: null } : lesson
+        )
+      );
+    } catch (error) {
+      console.error("Error canceling lesson:", error);
     }
-    e.target.reset();
-  };
-
-  const handleRemovePdf = (name) => {
-    setPdfs(pdfs.filter((pdf) => pdf.name !== name));
-  };
-
-  const handleMeetingAction = (index, action) => {
-    console.log(`Meeting ${index + 1} ${action}`); // Placeholder for actual functionality
   };
 
   return (
-    <div className="h-screen w-screen bg-gray-100 pt-[20vh] basic relative overflow-x-hidden">
+    <div className="h-screen w-full bg-gray-100 pt-[10vh] overflow-x-hidden px-4 md:px-12">
+      {/* Home Icon */}
+      <Link
+        to={`/admin/${adminname}`}
+        className="absolute top-6 left-6 z-50 bg-white p-3 rounded-full shadow-lg hover:bg-gray-200 transition"
+      >
+        <FaHome className="w-6 h-6 text-neonblue z-50" />
+      </Link>
+
+      {/* Background */}
+      <div className="absolute inset-0 w-full h-full bg-cover bg-center filter blur-lg z-0"
+        style={{ backgroundImage: "url('/images/background-main.png')" }}
+      ></div>
+      <div className="absolute inset-0 bg-black bg-cover opacity-10 bg-center filter blur-lg h-full z-0"></div>
+
       {/* Header Section */}
-      <div className="bg-neonblue text-white py-6 px-60">
-        <h1 className="text-5xl font-bold drop-shadow-md">Przygotowanie do matury</h1>
-        <p className="mt-4 text-3xl font-bold drop-shadow-md">Jan Kowalski</p>
+      <div className="bg-neonblue text-white text-center sm:text-left rounded-3xl py-6 w-full max-w-[1000px] mx-auto px-4 z-40 relative">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center">Przygotowanie do matury</h1>
       </div>
 
       {/* Main Content Section */}
-      <div className="flex flex-col md:flex-row px-10 py-8">
+      <div className="flex flex-col md:flex-row px-4 sm:px-10 py-8 gap-6 w-full max-w-[1000px] mx-auto z-40 relative">
+        
         {/* Left Section */}
         <div className="flex-1">
-          {/* Przerobione tematy */}
-          <div className="bg-white rounded-lg shadow-md p-6 max-w-[1200px]">
-            <h2 className="px-6 text-2xl mb-4 font-bold">Przerobione tematy:</h2>
-            <ul className="px-6 space-y-2 text-gray-700 flex gap-4">
-              {topics.map((topic, index) => (
-                <li
-                  key={index}
-                  className="flex items-center space between rounded-3xl bg-neonblue max-w-[500px] pl-6 pr-4 py-2 text-white text-xl self-center"
-                >
-                  {topic}
-                  <button
-                    onClick={() => handleRemoveTopic(index)}
-                    className="w-6 h-6 bg-red-500 text-white rounded-full font-bold flex items-center justify-center ml-4 text-center self-center"
-                  >
-                    ×
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 flex items-center gap-4 px-6">
-              <input
-                type="text"
-                placeholder="Dodaj nowy temat"
-                value={newTopic}
-                onChange={(e) => setNewTopic(e.target.value)}
-                className="p-2 border rounded-lg flex-1"
-              />
-              <button
-                onClick={handleAddTopic}
-                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-              >
-                Dodaj
-              </button>
-            </div>
+          {/* Meeting Schedule */}
+          <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4">Terminy spotkań</h2>
+
+            {lessonDates.length > 0 ? (
+              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {lessonDates.map((lesson, index) => (
+                  <li key={index} className={`p-4 rounded-lg shadow-md flex flex-col items-center ${
+                    lesson.status === "odwołane" ? "bg-red-100 border border-red-500" : "bg-gray-100"
+                  }`}>
+                    <span className="text-lg font-medium">{new Date(lesson.lessonDate).toLocaleString()}</span>
+                    <p className="text-sm text-gray-600">Status: {lesson.status}</p>
+
+                    {/* If lesson is canceled, show refund message & hide actions */}
+                    {lesson.status === "odwołane" ? (
+                      <p className="text-md font-medium text-red-700 text-center mt-2">
+                        Twoje zajęcia zostały odwołane.
+                      </p>
+                    ) : (
+                      <button
+                        onClick={() => handleCancelLesson(lesson.id)}
+                        className="mt-3 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition"
+                      >
+                        Odwołaj
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-500">Brak zaplanowanych lekcji.</p>
+            )}
           </div>
 
-          {/* Terminy spotkań */}
-          <div className="mt-8 bg-white rounded-lg shadow-md p-6 max-w-[1200px]">
-            <h2 className="px-6 text-xl font-semibold mb-4">Terminy spotkań</h2>
-            <ul className="px-6 space-y-4">
-              {["28.11", "10.12", "20.12"].map((date, index) => (
-                <li
-                  key={index}
-                  className="flex items-center justify-between bg-gray-100 p-4 rounded-lg shadow-md"
-                >
-                  <span className="text-lg font-medium">
-                    {date} (11:15)
-                  </span>
-                  <div className="flex gap-4">
-                    <button
-                      onClick={() => handleMeetingAction(index, "approve")}
-                      className="bg-green-500 text-white px-2 py-1 rounded-lg hover:bg-green-600"
-                    >
-                      Zatwierdź
-                    </button>
-                    <button
-                      onClick={() => handleMeetingAction(index, "cancel")}
-                      className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
-                    >
-                      Odwołaj
-                    </button>
+          {/* PDF Materials */}
+          <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4">Materiały PDF</h2>
+            {pdfs.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {pdfs.map((pdf, index) => (
+                  <div key={index} className="flex items-center bg-gray-200 p-4 rounded-lg justify-between">
+                    <a href={pdf.link} download className="flex items-center">
+                      <img src="https://img.icons8.com/color/48/000000/pdf.png" alt="PDF Icon" className="w-6 h-6 mr-2" />
+                      {pdf.name}
+                    </a>
                   </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Materiały PDF */}
-          <div className="mt-8 bg-white rounded-lg shadow-md p-6 max-w-[1200px]">
-            <h2 className="px-6 text-xl font-semibold mb-4">Materiały PDF</h2>
-            <div className="px-6 grid grid-cols-2 gap-4">
-              {pdfs.map((pdf, index) => (
-                <div
-                  key={index}
-                  className="flex items-center bg-gray-200 p-4 rounded-lg justify-between hover:bg-gray-300 transition"
-                >
-                  <a href={pdf.link} download className="flex items-center">
-                    <img
-                      src="https://img.icons8.com/color/48/000000/pdf.png"
-                      alt="PDF Icon"
-                      className="w-6 h-6 mr-2"
-                    />
-                    {pdf.name}
-                  </a>
-                  <button
-                    onClick={() => handleRemovePdf(pdf.name)}
-                    className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
-                  >
-                    Usuń
-                  </button>
-                </div>
-              ))}
-            </div>
-            <form onSubmit={handleAddPdf} className="mt-4 flex items-center gap-4">
-              <input
-                type="file"
-                name="file"
-                accept="application/pdf"
-                className="p-2 border rounded-lg flex-1 hover:border-blue-500"
-              />
-              <button
-                type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-              >
-                Dodaj PDF
-              </button>
-            </form>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-500">Brak dostępnych materiałów.</p>
+            )}
           </div>
         </div>
       </div>

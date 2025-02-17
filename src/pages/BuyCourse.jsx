@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa"; 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -90,6 +91,14 @@ const BuyCourse = () => {
 
   return (
     <div className="w-full h-screen bg-gray-100 flex flex-col items-center py-12 px-4 overflow-x-hidden">
+      {/* Home Icon */}
+      <Link
+        to={`/user/${username}`}
+        className="absolute top-6 left-6 z-50 bg-white p-3 rounded-full shadow-lg hover:bg-gray-200 transition"
+      >
+        <FaHome className="w-6 h-6 text-neonblue z-50" />
+      </Link>
+
       <h1 className="text-3xl sm:text-4xl font-bold mb-6">Zaplanuj swoje lekcje</h1>
 
       {/* Time Selection */}
