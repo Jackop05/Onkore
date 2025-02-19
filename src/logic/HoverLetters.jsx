@@ -1,3 +1,4 @@
+// Makes every letter of the given string show green color when hovering over it
 export default function HoverLetters(text, color = "neongreen") {
     return (
       <div className="flex flex-wrap justify-center text-center w-full gap-1">

@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa"; 
 
+
+
 const UserCourse = () => {
   const { courseId, username } = useParams();
 
   const [courseData, setCourseData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
+
+  // UseState for fetching single course data  
   useEffect(() => {
     const fetchCourseData = async () => {
       try {
@@ -28,15 +30,14 @@ const UserCourse = () => {
         const data = await response.json();
         setCourseData(data);
       } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
+        console.log(error);
+      } 
     };
 
     fetchCourseData();
   }, []);
 
+  // Formates date datatype into easy to understand one 
   const dateFormatter = (date) => {
     return (
       <span className="text-lg font-medium">
@@ -53,9 +54,11 @@ const UserCourse = () => {
     );
   };
 
+
   return (
     <div className="w-full min-h-screen bg-gray-100 py-12 px-4 flex flex-col items-center cursor-default overflow-x-hidden relative">
-      {/* Home Icon */}
+      
+      {/* Home link */}
       <Link
         to={`/user/${username}`}
         className="absolute top-6 left-6 z-50 bg-white p-3 rounded-full shadow-lg hover:bg-gray-200 transition"
@@ -63,6 +66,7 @@ const UserCourse = () => {
         <FaHome className="w-6 h-6 text-neonblue z-50" />
       </Link>
 
+      {/* Background */}
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center filter blur-lg"
         style={{ backgroundImage: "url('/images/background-main.png')" }}
@@ -81,30 +85,8 @@ const UserCourse = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Lessons listed */}
       <div className="w-full max-w-[90%] sm:max-w-[1100px] flex flex-col gap-8 mt-10 z-50">
-        {/* Topics Covered */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-bold mb-4">Zrealizowane tematy:</h2>
-          <div className="flex flex-wrap gap-4">
-            {[
-              "Kinematyka",
-              "Dynamika",
-              "Praca, moc, energia",
-              "Ruch drgający",
-              "Termodynamika",
-            ].map((topic, index) => (
-              <span
-                key={index}
-                className="bg-neonblue text-white px-6 py-2 rounded-xl text-lg shadow-md"
-              >
-                {topic}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Lesson Schedule */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-bold mb-4">Moje zajęcia:</h2>
           <ul className="space-y-4">
@@ -138,7 +120,7 @@ const UserCourse = () => {
           </ul>
         </div>
 
-        {/* Course Materials */}
+        {/* Course materials */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-bold mb-4">Moje materiały</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

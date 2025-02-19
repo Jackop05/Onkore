@@ -4,6 +4,8 @@ import { FaHome } from "react-icons/fa";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+
+
 const BuyCourse = () => {
   const navigate = useNavigate();
   const { courseId, username } = useParams();
@@ -14,9 +16,14 @@ const BuyCourse = () => {
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [promoCode, setPromoCode] = useState("");
   const [promoCodeStatus, setPromoCodeStatus] = useState(null);
-  const [loadingPromoCode, setLoadingPromoCode] = useState(false);
-  const [error, setError] = useState(null);
 
+  const timeSlots = [
+    "6:00 - 8:00", "8:00 - 11:00", "11:00 - 14:00",
+    "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00",
+  ];
+
+
+  // UseEffetc for fetching availability of all admins that are suitablefor the selected course 
   useEffect(() => {
     if (!selectedTime) return;
     fetch(
@@ -24,9 +31,10 @@ const BuyCourse = () => {
     )
       .then((response) => response.json())
       .then((data) => setAvailableDays(data))
-      .catch((err) => setError(err.message));
+      .catch((err) => console.log(err.message));
   }, [selectedTime, courseId]);
 
+  // UseEffect for checking if promo code is valid
   useEffect(() => {
     if (!promoCode) {
       setPromoCodeStatus(null);
@@ -52,11 +60,7 @@ const BuyCourse = () => {
     return () => clearTimeout(timer);
   }, [promoCode, courseId]);
 
-  const timeSlots = [
-    "6:00 - 8:00", "8:00 - 11:00", "11:00 - 14:00",
-    "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00",
-  ];
-
+  // Function that handles time slot change
   const handleTimeSelection = (time) => {
     if (selectedDates.length > 0 && !window.confirm(
       "Czy napewno chcesz zmienić godzinę? Usunie to aktualnie wybrane dni."
@@ -66,6 +70,7 @@ const BuyCourse = () => {
     setSelectedTime(time);
   };
 
+  // Validates which days are available
   const isDateDisabled = (date) => {
     const today = new Date();
     const threeMonthsLater = new Date(today);
@@ -76,6 +81,7 @@ const BuyCourse = () => {
     );
   };
 
+  // Adds new date to selected dates
   const handleDateChange = (date) => {
     setSelectedDates((prev) =>
       prev.some((d) => d.getTime() === date.getTime())
@@ -84,14 +90,17 @@ const BuyCourse = () => {
     );
   };
 
+  // Handles payment button
   const handlePayment = () => {
     // TODO: Transaction to implement here
     navigate(`/user/${username}`)
   }
 
+
   return (
     <div className="w-full h-screen bg-gray-100 flex flex-col items-center py-12 px-4 overflow-x-hidden">
-      {/* Home Icon */}
+      
+      {/* Home link */}
       <Link
         to={`/user/${username}`}
         className="absolute top-6 left-6 z-50 bg-white p-3 rounded-full shadow-lg hover:bg-gray-200 transition"
@@ -101,7 +110,7 @@ const BuyCourse = () => {
 
       <h1 className="text-3xl sm:text-4xl font-bold mb-6">Zaplanuj swoje lekcje</h1>
 
-      {/* Time Selection */}
+      {/* Time slot selection */}
       <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl mb-8 ">
         <h2 className="text-xl font-semibold mb-4">Wybierz godzinę:</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -120,7 +129,7 @@ const BuyCourse = () => {
         </div>
       </div>
 
-      {/* Date Selection */}
+      {/* Date selection callendar */}
       <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl">
         <h2 className="text-xl font-semibold mb-4 text-center">Wybierz dni:</h2>
         <div className="flex justify-center mb-8">
@@ -152,9 +161,8 @@ const BuyCourse = () => {
         </div>
       </div>
 
-      {/* Additional Info & Promo Code */}
+      {/* Additional info */}
       <div className="w-full max-w-2xl flex flex-col gap-6 mt-8">
-        {/* Additional Info */}
         <div className="bg-white p-6 rounded-xl shadow-lg">
           <h2 className="text-xl font-semibold mb-4">Dodatkowe informacje:</h2>
           <textarea
@@ -165,7 +173,7 @@ const BuyCourse = () => {
           />
         </div>
 
-        {/* Promo Code */}
+        {/* Promo code */}
         <div className="bg-white p-6 rounded-xl shadow-lg">
           <h2 className="text-xl font-semibold mb-4">Kod promocyjny:</h2>
           <input
@@ -180,7 +188,7 @@ const BuyCourse = () => {
         </div>
       </div>
 
-      {/* Summary Section */}
+      {/* Summary section */}
       <div className="w-full max-w-2xl bg-white p-6 rounded-xl shadow-lg mt-8">
         <h2 className="text-2xl font-semibold mb-4">Podsumowanie</h2>
         <p className="text-gray-700">Godzina: <span className="text-gray-500">{selectedTime || "Nie wybrano"}</span></p>

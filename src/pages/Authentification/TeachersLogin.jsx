@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa"; 
 
+
+
 const TeachersLogin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+
+  // Function handles admin login
   const onSubmit = async (event) => {
     event.preventDefault();
 
@@ -42,9 +46,11 @@ const TeachersLogin = () => {
     }
   };
 
+
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-center bg-slate-50 px-4 relative">
-      {/* 🏠 Home Button */}
+
+      {/* Home link */}
       <div className="absolute top-4 left-4">
         <button
           onClick={() => navigate("/")}
@@ -55,10 +61,11 @@ const TeachersLogin = () => {
         </button>
       </div>
 
-      {/* Login Box */}
+      {/* Login card */}
       <div className="w-full max-w-[400px] bg-white rounded-2xl shadow-xl px-6 py-8 sm:px-8 sm:py-10">
         <h1 className="text-3xl sm:text-4xl font-bold text-neonblue text-center mb-6">Zaloguj</h1>
 
+        {/* Form */}
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-gray-800 font-semibold mb-1">Email:</label>
@@ -86,8 +93,10 @@ const TeachersLogin = () => {
             />
           </div>
 
+          {/* Wrong email or password error */}
           {error && <p className="text-red-500 text-lg font-bold mb-2">{error}</p>}
 
+          {/* Submit button */}
           <button 
             type="submit" 
             className="w-full text-white py-3 rounded-lg bg-neonblue shadow-sm transition-all duration-150 hover:scale-105"

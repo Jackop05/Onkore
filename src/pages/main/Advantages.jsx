@@ -1,7 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import HoverLetters from "../../logic/HoverLetters";
 
+
+
 const Advantages = () => {
+  const sliderRef = useRef(null);
+
   const questions = [
     "Chcesz poprawić ocenę?",
     "Nauczyć się na poprawkę?",
@@ -20,65 +24,11 @@ const Advantages = () => {
     "Przerabianie podręczników, zbiorów zadań oraz przykładowych testów.",
   ];
 
-  // Reference for the slider
-  const sliderRef = useRef(null);
-
-  useEffect(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    let startX = 0;
-    let scrollLeft = 0;
-
-    const handleMouseDown = (e) => {
-      slider.classList.add("cursor-grabbing");
-      startX = e.pageX - slider.offsetLeft;
-      scrollLeft = slider.scrollLeft;
-    };
-
-    const handleMouseMove = (e) => {
-      if (!slider.classList.contains("cursor-grabbing")) return;
-      e.preventDefault();
-      const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX) * 1.5; // Speed adjustment
-      slider.scrollLeft = scrollLeft - walk;
-    };
-
-    const handleMouseUp = () => {
-      slider.classList.remove("cursor-grabbing");
-    };
-
-    const handleTouchStart = (e) => {
-      startX = e.touches[0].clientX;
-      scrollLeft = slider.scrollLeft;
-    };
-
-    const handleTouchMove = (e) => {
-      const x = e.touches[0].clientX;
-      const walk = (x - startX) * 1.5;
-      slider.scrollLeft = scrollLeft - walk;
-    };
-
-    slider.addEventListener("mousedown", handleMouseDown);
-    slider.addEventListener("mousemove", handleMouseMove);
-    slider.addEventListener("mouseup", handleMouseUp);
-    slider.addEventListener("mouseleave", handleMouseUp);
-    slider.addEventListener("touchstart", handleTouchStart);
-    slider.addEventListener("touchmove", handleTouchMove);
-
-    return () => {
-      slider.removeEventListener("mousedown", handleMouseDown);
-      slider.removeEventListener("mousemove", handleMouseMove);
-      slider.removeEventListener("mouseup", handleMouseUp);
-      slider.removeEventListener("mouseleave", handleMouseUp);
-      slider.removeEventListener("touchstart", handleTouchStart);
-      slider.removeEventListener("touchmove", handleTouchMove);
-    };
-  }, []);
 
   return (
     <div id="advantages" className="bg-slate-100 text-center mb-10 w-full flex flex-col justify-center px-4 md:px-20 py-4 sm:p-10">
-      {/* Header Section */}
+      
+      {/* Header */}
       <div className="text-[30px] sm:text-[40px] lg:text-[50px] flex gap-4 justify-center mb-4">
         Dołącz do{" "}
         <span className="text-[37px] sm:text-[50px] titles font-bold lg:text-[60px] text-neonblue flex cursor-default">
@@ -87,7 +37,7 @@ const Advantages = () => {
         </span>
       </div>
 
-      {/* Questions Section */}
+      {/* Questions section */}
       <div className="w-full flex justify-center overflow-hidden max-w-[1000px] mx-auto">
         <div
           ref={sliderRef}
@@ -111,7 +61,7 @@ const Advantages = () => {
         </div>
       </div>
 
-      {/* Offerings Section */}
+      {/* Profit section */}
       <div className="text-[30px] sm:text-[40px] lg:text-[50px] mb-4 mt-10 ">Co oferujemy?</div>
       <div className="w-full flex justify-center overflow-hidden">
         <div

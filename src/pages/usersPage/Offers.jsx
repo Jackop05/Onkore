@@ -2,21 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import HoverLetters from "../../logic/HoverLetters";
 
+
+
 const Offers = ({ userData }) => {
   const [subjectCoursesData, setSubjectCoursesData] = useState(null);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch("http://localhost:2020/api/subject-courses/get-subject-courses")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => setSubjectCoursesData(data))
-      .catch((err) => setError(err.message));
-  }, []);
 
   const images = [
     "/images/subjectIcons/englishIcon1.png",
@@ -34,6 +24,21 @@ const Offers = ({ userData }) => {
     "/images/subjectIcons/physicsIcon3.png",
   ];
 
+
+  // UseEffect for fetching all subject courses data 
+  useEffect(() => {
+    fetch("http://localhost:2020/api/subject-courses/get-subject-courses")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => setSubjectCoursesData(data))
+      .catch((err) => setError(err.message));
+  }, []);
+
+  // Renders all subject courses
   const renderCourses = () => {
     if (!subjectCoursesData || subjectCoursesData.length === 0) {
       return <p className="text-lg text-gray-500 mt-4">Brak dostępnych kursów.</p>;
@@ -41,13 +46,15 @@ const Offers = ({ userData }) => {
 
     return subjectCoursesData.map((course, index) => (
       <div key={course.id} className="w-full max-w-[1000px] my-3">
-        {/* Course Card */}
+
+        {/* Course card */}
         <div
           className={`bg-white flex flex-col md:flex-row justify-between border-2 border-solid border-slate-900 rounded-3xl px-6 py-6 md:py-8 shadow-lg transition-all duration-200 hover:shadow-xl ${
             course.level === "szkoła podstawowa" ? "mt-20" : ""
           }`}
         >
-          {/* Course Info */}
+
+          {/* Course info */}
           <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
             <img
               src={images[course.iconIndex] || "/images/defaultIcon.png"}
@@ -64,7 +71,7 @@ const Offers = ({ userData }) => {
             </div>
           </div>
 
-          {/* Buy Button */}
+          {/* Buy button */}
           <div className="flex justify-center md:justify-end items-center mt-4 md:mt-0">
             <Link
               to={`/user/buy-course/${userData?.username}/${course.id}`}
@@ -81,6 +88,7 @@ const Offers = ({ userData }) => {
   return (
     <div id="offers" className="bg-slate-100 w-full flex justify-center py-20 px-4">
       <div className="max-w-[1100px] w-full">
+
         {/* Title */}
         <h1 className="text-[32px] sm:text-[42px] md:text-[50px] font-bold text-center mt-4">
           {HoverLetters("Znajdź coś dla siebie")}
@@ -89,7 +97,7 @@ const Offers = ({ userData }) => {
         {/* Error Message */}
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {/* Render Courses */}
+        {/* Rendered courses */}
         <div className="flex flex-col items-center">{renderCourses()}</div>
       </div>
     </div>

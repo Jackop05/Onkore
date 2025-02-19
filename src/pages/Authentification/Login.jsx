@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaHome } from "react-icons/fa"; // Importing Home Icon from React Icons
+import { FaHome } from "react-icons/fa"; 
+
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,6 +11,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+
+  // Handle login function
   const onSubmit = async (event) => {
     event.preventDefault();
 
@@ -45,10 +49,11 @@ const Login = () => {
     }
   };
 
+
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center bg-slate-50 px-4 relative">
       
-      {/* 🏠 Home Icon (Redirects to "/") */}
+      {/* Home link */}
       <div className="absolute top-4 left-4">
         <button
           onClick={() => navigate("/")}
@@ -59,7 +64,7 @@ const Login = () => {
         </button>
       </div>
 
-      {/* Login Box */}
+      {/* Login card */}
       <div className="w-full max-w-[90%] sm:max-w-[400px] bg-white rounded-2xl shadow-xl flex flex-col justify-between px-6 sm:px-8 pt-6 pb-10 cursor-default">
         
         {/* Title */}
@@ -105,15 +110,16 @@ const Login = () => {
             />
           </div>
 
+          {/* Wrong email or password error */}
           {error && <p className="text-red-500 text-lg font-bold mb-4">{error}</p>}
 
+          {/* Submit button */}
           <button type="submit" className="w-full text-white py-2 mt-4 mb-4 rounded-lg bg-neonblue shadow-sm transition-all duration-150 hover:scale-105">
             <div className="drop-shadow-md text-xl">Zaloguj</div>
           </button>
         </form>
 
-        {/* Optional Google Login */}
-        {/* 
+        {/* Google Login */}
         <button className="flex items-center justify-center px-4 py-2 w-full border border-gray-400 rounded-md shadow-sm bg-white text-gray-700 font-medium focus:ring-2 focus:ring-gray-300 ease-in-out transition-all duration-150 hover:scale-105">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-5 h-5 mr-3">
             <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
@@ -123,7 +129,6 @@ const Login = () => {
           </svg>
           <span className="font-medium text-lg">Zaloguj z Google</span>
         </button>
-        */}
       </div>
     </div>
   );

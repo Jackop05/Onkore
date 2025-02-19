@@ -1,3 +1,4 @@
+// Weekdays listed (in Polish)
 const WeekDays = [
     "Poniedziałek",
     "Wtorek",

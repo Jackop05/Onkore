@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Login from './pages/Authentification/Login';
 import Register from './pages/Authentification/Register';
 import NoPath from './pages/NoPath';
@@ -12,6 +13,8 @@ import Admin from './pages/Admin';
 import TeachersCourse from './pages/admin/TeachersCourse';
 import TeachersLogin from './pages/Authentification/TeachersLogin';
 import TeachersRegister from './pages/Authentification/TeachersRegister';
+
+
 
 function App() {
   return (

@@ -1,27 +1,27 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
+import ScrollToSection from "../../logic/ScrollToSection";
+
+
 
 const Navbar = () => {
   const navigate = useNavigate();
+
   const [menuOpen, setMenuOpen] = useState(false);
 
+
+  // Togles menu open and close 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  // Closes menu
   const closeMenu = () => {
     setMenuOpen(false);
   };
 
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-      closeMenu(); // Close menu after clicking
-    }
-  };
-
+  // Function that handles user's logout
   const handleLogout = async () => {
     try {
       const response = await fetch("http://localhost:2020/api/user/logout-user", {
@@ -39,9 +39,11 @@ const Navbar = () => {
     }
   };
 
+
   return (
     <div className="fixed w-full bg-white shadow-xl z-50">
       <div className="mx-auto px-6 flex justify-between items-center h-[80px]">
+
         {/* Logo */}
         <img
           src="../images/logoOnkoreIcon.png"
@@ -50,17 +52,17 @@ const Navbar = () => {
           onClick={() => navigate("/")}
         />
 
-        {/* Desktop Menu */}
+        {/* Desktop menu */}
         <div className="hidden md:flex gap-10 text-lg md:text-2xl font-semibold items-center tracking-wide">
         <div
           className="cursor-pointer hover:drop-shadow-sm hover:text-neonblue transition-all duration-150"
-          onClick={() => scrollToSection('offers')}
+          onClick={() => ScrollToSection('offers')}
         >
           Nowe kursy
         </div>
         <div
           className="cursor-pointer hover:drop-shadow-sm hover:text-neonblue transition-all duration-150"
-          onClick={() => scrollToSection('myCourses')}
+          onClick={() => ScrollToSection('myCourses')}
         >
           Moje kursy
         </div>
@@ -71,43 +73,41 @@ const Navbar = () => {
           Wyloguj
         </button>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile menu button */}
         <button className="md:hidden text-3xl text-slate-900 focus:outline-none" onClick={toggleMenu}>
           <FaBars />
         </button>
       </div>
 
-        {/* Mobile Menu Button */}
+        {/* Close mobile menu button  */}
         <button className="md:hidden text-3xl text-slate-900 focus:outline-none" onClick={toggleMenu}>
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
-
-      {/* Backdrop when menu is open */}
       {menuOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={closeMenu}></div>
       )}
 
-      {/* Sliding Mobile Menu */}
+      {/* Sliding mobile menu */}
       <div
         className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 transform transition-transform duration-300 
                     ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
       >
-        {/* Close Button */}
+        {/* Close menu button */}
         <button className="absolute top-4 right-4 text-3xl text-gray-900" onClick={closeMenu}>
           <FaTimes />
         </button>
 
-        {/* Menu Items */}
+        {/* Menu items */}
         <div className="flex flex-col items-center gap-6 pt-20 text-xl">
           <div
             className="cursor-pointer hover:text-neonblue transition-all duration-150"
-            onClick={() => scrollToSection("offers")}
+            onClick={() => ScrollToSection("offers")}
           >
             Nowe kursy
           </div>
           <button
-            onClick={() => scrollToSection("myCourses")}
+            onClick={() => ScrollToSection("myCourses")}
             className="cursor-pointer hover:text-neonblue transition-all duration-150"
           >
             Moje kursy

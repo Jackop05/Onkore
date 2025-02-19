@@ -1,16 +1,19 @@
 import React from "react";
 
+
+
 const Footer = () => {
   return (
     <div
       id="footer"
       className="bg-[url('/images/footer.png')] bg-cover bg-center w-full h-auto text-white relative"
     >
-      {/* Background Overlay */}
+      {/* Background */}
       <div className="bg-black/70 w-full h-full px-6 md:px-20 py-10 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
         
-        {/* Social Links */}
+        {/* Social links */}
         <div className="flex flex-col gap-4 text-xl">
+          
           {/* Facebook */}
           <a
             href="https://facebook.com"
@@ -76,7 +79,7 @@ const Footer = () => {
           <div className="text-center text-xs mt-2">&copy; 2024 Onkore. All rights reserved.</div>
         </div>
 
-        {/* Contact Info */}
+        {/* Contact info */}
         <div className="flex flex-col gap-4 text-lg mt-6 md:mt-0">
           <div>
             <div className="text-xl font-semibold">Email</div>

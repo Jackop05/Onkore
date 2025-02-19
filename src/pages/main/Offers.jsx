@@ -2,22 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import HoverLetters from "../../logic/HoverLetters";
 
-const Offers = ({ userData }) => {
+
+
+const Offers = () => {
   const [subjectCoursesData, setSubjectCoursesData] = useState(null);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch("http://localhost:2020/api/subject-courses/get-subject-courses")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => setSubjectCoursesData(data))
-      .catch((err) => setError(err.message));
-  }, []);
-
+  
   const images = [
     "/images/subjectIcons/englishIcon1.png",
     "/images/subjectIcons/englishIcon2.png",
@@ -34,6 +24,21 @@ const Offers = ({ userData }) => {
     "/images/subjectIcons/physicsIcon3.png",
   ];
 
+
+  // UseEffect fetching subject courses data
+  useEffect(() => {
+    fetch("http://localhost:2020/api/subject-courses/get-subject-courses")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => setSubjectCoursesData(data))
+      .catch((err) => setError(err.message));
+  }, []);
+
+  // Function handling render of all the courses from subject courses
   const renderCourses = () => {
     if (!subjectCoursesData || subjectCoursesData.length === 0) {
       return <p className="text-lg text-gray-500 mt-4">Brak dostępnych kursów.</p>;
@@ -41,13 +46,9 @@ const Offers = ({ userData }) => {
 
     return subjectCoursesData.map((course, index) => (
       <div key={course.id} className="w-full max-w-[1000px] my-3">
-        {/* Course Card */}
-        <div
-          className={`bg-white flex flex-col md:flex-row justify-between border-2 border-solid border-slate-900 rounded-3xl px-6 py-6 md:py-8 shadow-lg transition-all duration-200 hover:shadow-xl ${
-            course.level === "szkoła podstawowa" ? "mt-20" : ""
-          }`}
-        >
-          {/* Course Info */}
+        <div className={`bg-white flex flex-col md:flex-row justify-between border-2 border-solid border-slate-900 rounded-3xl px-6 py-6 md:py-8 shadow-lg transition-all duration-200 hover:shadow-xl ${course.level === "szkoła podstawowa" ? "mt-20" : ""}`}>
+          
+          {/* Course info */}
           <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
             <img
               src={images[course.iconIndex] || "/images/defaultIcon.png"}
@@ -64,7 +65,7 @@ const Offers = ({ userData }) => {
             </div>
           </div>
 
-          {/* Buy Button */}
+          {/* Buy button */}
           <div className="flex justify-center md:justify-end items-center mt-4 md:mt-0">
             <Link
               to={`/logowanie`}
@@ -78,6 +79,7 @@ const Offers = ({ userData }) => {
     ));
   };
 
+
   return (
     <div id="offers" className="bg-slate-50 w-full flex justify-center py-20 px-4">
       <div className="max-w-[1100px] w-full">
@@ -86,10 +88,10 @@ const Offers = ({ userData }) => {
           {HoverLetters("Znajdź coś dla siebie")}
         </h1>
 
-        {/* Error Message */}
+        {/* Error message */}
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {/* Render Courses */}
+        {/* Rendered courses */}
         <div className="flex flex-col items-center">{renderCourses()}</div>
       </div>
     </div>

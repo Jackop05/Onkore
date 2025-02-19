@@ -2,12 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import HoverLetters from "../../logic/HoverLetters";
 
-const MyCourses = ({ userData }) => {
-  if (!userData || !userData.currentCourses) {
-    return <p className="text-center text-lg mt-6">Ładowanie Twoich kursów...</p>;
-  }
 
-  // Using the same icon array from Offers.jsx
+
+const MyCourses = ({ userData }) => {
   const images = [
     "/images/subjectIcons/englishIcon1.png",
     "/images/subjectIcons/englishIcon2.png",
@@ -24,12 +21,22 @@ const MyCourses = ({ userData }) => {
     "/images/subjectIcons/physicsIcon3.png",
   ];
 
+
+  // Checks if userData has courses
+  if (!userData || !userData.currentCourses) {
+    return <p className="text-center text-lg mt-6">Ładowanie Twoich kursów...</p>;
+  }
+
+ 
   return (
     <div id="myCourses" className="bg-slate-50 w-full text-center py-16 px-4 sm:px-8">
+
+      {/* Title */}
       <h1 className="text-[32px] sm:text-[42px] md:text-[50px] font-bold mb-8">
         {HoverLetters("Moje kursy")}
       </h1>
 
+      {/* Courses listed */}
       <div className="flex flex-wrap justify-center gap-6">
         {userData.currentCourses.length === 0 ? (
           <p className="text-gray-700 text-lg">Nie masz jeszcze zapisanych kursów.</p>
@@ -54,8 +61,6 @@ const MyCourses = ({ userData }) => {
                     Poziom: {course.level}
                   </div>
                 </div>
-
-                {/* Unique Course Icon */}
                 <img
                   alt={`${course.subject} icon`}
                   className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-lg self-center"

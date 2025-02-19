@@ -10,7 +10,7 @@ import Footer from './main/Footer';
 
 const Base = () => {
   return (
-    <div className="w-screen h-screen basic bg-slate-100 overflow-x-hidden">
+    <div className="w-screen h-screen basic bg-slate-100 overflow-x-hidden"> 
         <Navbar />
         <Hero />
         <Advantages />

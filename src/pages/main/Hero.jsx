@@ -1,20 +1,16 @@
 import React from 'react';
 import HoverLetters from '../../logic/HoverLetters';
+import ScrollToSection from '../../logic/ScrollToSection';
+
+
 
 const Hero = () => {
-    const scrollToSection = (id) => {
-        const section = document.getElementById(id);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
     return (
         <div id="hero" className="relative text-center w-screen h-[80vh] mb-[20vh] flex flex-col justify-center top-16 basic md:pt-32 px-4 md:px-8">
-            {/* Blurred Background */}
+            {/* Background image */}
             <div className="absolute inset-0 bg-[url('/images/background-main.png')] bg-cover bg-center filter blur-md h-full"></div>
 
-            {/* Foreground Content */}
+            {/* First view content */}
             <div className="relative z-10 max-w-[90%] md:max-w-[700px] mx-auto bg-white rounded-3xl px-4 md:px-20 py-10 md:py-12 shadow-lg">
                 <div className="font-bold text-neonblue drop-shadow-lg mb-6 md:mb-10 titles">
                     <div className="text-[48px] sm:text-[64px] md:text-[80px]">{HoverLetters("Onkore")}</div>
@@ -28,7 +24,7 @@ const Hero = () => {
                 </p>
                 <button
                     className="w-full text-white py-3 rounded-lg bg-neonblue shadow-sm transition-all duration-150 hover:scale-105 max-w-[250px] sm:max-w-[300px] md:max-w-[350px] mx-auto"
-                    onClick={() => scrollToSection('offers')}
+                    onClick={() => ScrollToSection('offers')}
                 >
                     <div className="drop-shadow-md text-lg sm:text-xl">Zapisz się na kurs!</div>
                 </button>
