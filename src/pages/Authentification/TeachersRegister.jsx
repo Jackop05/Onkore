@@ -69,7 +69,7 @@ const RegisterTeacher = () => {
         <h1 className="text-3xl sm:text-4xl font-bold text-neonblue text-center mb-6">Rejestracja nauczyciela</h1>
 
         {/* From */}
-        <form onSubmit={onSubmit} className="space-y-4">
+        <form onSubmit={onSubmit} className="space-y-4 mb-4">
           <input type="text" placeholder="Imię i nazwisko..." value={username} onChange={(e) => setUsername(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-neonblue" required />
           <input type="email" placeholder="TwójEmail@email.pl" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-neonblue" required />
           <input type="password" placeholder="Ustaw hasło..." value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-neonblue" required />
