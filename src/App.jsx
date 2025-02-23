@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from './pages/Authentification/Login';
 import Register from './pages/Authentification/Register';
+import ResetPassword from './pages/Authentification/ResetPassword';
 import NoPath from './pages/NoPath';
 import Base from './pages/Base';
 import UsersPage from './pages/UsersPage';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Base />} />
           <Route path="/logowanie" element={<Login />} />
           <Route path="/rejestracja" element={<Register />} />
+          <Route path="/user/reset-password/:token" element={<ResetPassword />} />
 
           <Route path="/user/:username" element={<UsersPage />} />
           <Route path="/user/user-course/:username/:courseId" element={<UserCourse />} />

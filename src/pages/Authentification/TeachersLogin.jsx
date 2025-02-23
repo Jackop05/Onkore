@@ -11,6 +11,43 @@ const TeachersLogin = () => {
   const [error, setError] = useState("");
 
 
+  // Reset password logic
+  const resetPassword = async (e) => {
+    e.preventDefault();
+
+    if (!email) {
+      alert("Please provide your email");
+      return;
+    }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Invalid email format!");
+      return;
+    }
+  
+    const userData = { email };
+  
+    try {
+      const response = await fetch("http://localhost:2020/api/admin/create-reset-password-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      const result = await response.json();
+      if (!response.ok) {
+        console.log(result.error || "Something went wrong...");
+        return;
+      }
+
+    } catch (error) {
+      console.log("An unexpected error occurred: ", error);
+    }
+  };
+
   // Function handles admin login
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -114,6 +151,9 @@ const TeachersLogin = () => {
           />
           <span className="font-medium text-lg">Zaloguj z Google</span>
         </button>
+
+        {/* Reset password link */}
+        <div onClick={(e) => {resetPassword(e)}} className="text-sm text-center text-blue-500 underline mt-2">Reset password for given email</div>
       </div>
     </div>
   );

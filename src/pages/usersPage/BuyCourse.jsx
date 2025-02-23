@@ -15,6 +15,7 @@ const BuyCourse = () => {
   const [selectedDates, setSelectedDates] = useState([]);
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [promoCode, setPromoCode] = useState("");
+  const [loadingPromoCode, setLoadingPromoCode] = useState(false);
   const [promoCodeStatus, setPromoCodeStatus] = useState(null);
 
   const timeSlots = [
@@ -90,11 +91,53 @@ const BuyCourse = () => {
     );
   };
 
-  // Handles payment button
   const handlePayment = () => {
-    // TODO: Transaction to implement here
-    navigate(`/user/${username}`)
-  }
+  console.log(selectedTime);
+  // Assuming you only want to send one date, not an array
+  const courseData = {
+    username: username, 
+    course_id: courseId,
+    // Only send one formatted date instead of an array
+    dates: selectedDates.map((date) => {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+      const year = date.getFullYear();
+      const [startTime, endTime] = selectedTime.split(' - ');
+      const [startHour, startMinute] = startTime.split(':');
+  
+      // Return a single formatted date string instead of an array
+      return `${year}-${month}-${day}-${startHour}-${startMinute}`;
+    })[0], // Only take the first date if sending a single date
+    bonus_info: additionalInfo,
+    promo_code: promoCode,
+  };
+
+  console.log(JSON.stringify(courseData));
+
+  fetch("http://localhost:2020/api/user/post-course", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(courseData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message) {
+        // Successfully posted course
+        alert("Course posted successfully!");
+        navigate(`/user/${username}`);
+      } else if (data.error) {
+        // Handle error response
+        alert(`Error: ${data.error}`);
+      }
+    })
+    .catch((error) => {
+      console.error("Error during course posting:", error);
+      alert("There was an error processing your request.");
+    });
+};
+
 
 
   return (

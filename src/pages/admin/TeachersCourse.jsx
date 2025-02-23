@@ -2,20 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 
-
-
 const TeachersCourse = () => {
   const { adminname, courseId } = useParams();
   const [lessonDates, setLessonDates] = useState([]);
   const [pdfs, setPdfs] = useState([]);
+  const [file, setFile] = useState(null);
 
-
-  // UseEffect calls fetchCourseData 
+  // Fetch course data including PDFs
   useEffect(() => {
     fetchCourseData();
   }, []);
 
-  // Function fetches for single course data
   const fetchCourseData = async () => {
     try {
       const response = await fetch(`http://localhost:2020/api/user/get-single-user-current-course?courseId=${courseId}`, {
@@ -34,10 +31,38 @@ const TeachersCourse = () => {
     }
   };
 
+  // Handle file input
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  // Handle file upload
+  const handleFileUpload = async () => {
+    if (!file) return alert("Please select a file to upload");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("http://localhost:2020/api/admin/post-material", {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+
+      if (!response.ok) throw new Error("Error uploading file");
+
+      alert("File uploaded successfully!");
+      fetchCourseData();  // Re-fetch PDFs after upload
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
   // Cancels selected lesson
   const handleCancelLesson = async (lessonId) => {
     const isConfirmed = window.confirm("Czy na pewno chcesz odwołać tę lekcję?");
-    if (!isConfirmed) return; 
+    if (!isConfirmed) return;
 
     try {
       const response = await fetch(`http://localhost:2020/api/admin/cancel-lesson`, {
@@ -59,10 +84,8 @@ const TeachersCourse = () => {
     }
   };
 
-
   return (
     <div className="h-screen w-full bg-gray-100 pt-[10vh] overflow-x-hidden px-4 md:px-12">
-
       {/* Home link */}
       <Link
         to={`/admin/${adminname}`}
@@ -72,9 +95,7 @@ const TeachersCourse = () => {
       </Link>
 
       {/* Background */}
-      <div className="absolute inset-0 w-full h-full bg-cover bg-center filter blur-lg z-0"
-        style={{ backgroundImage: "url('/images/background-main.png')" }}
-      ></div>
+      <div className="absolute inset-0 w-full h-full bg-cover bg-center filter blur-lg z-0" style={{ backgroundImage: "url('/images/background-main.png')" }}></div>
       <div className="absolute inset-0 bg-black bg-cover opacity-10 bg-center filter blur-lg h-full z-0"></div>
 
       {/* Header Section */}
@@ -85,16 +106,13 @@ const TeachersCourse = () => {
       {/* Main Content Section */}
       <div className="flex flex-col md:flex-row px-4 sm:px-10 py-8 gap-6 w-full max-w-[1000px] mx-auto z-40 relative">
         <div className="flex-1">
-          
-          {/* Meeting dates  */}
+          {/* Meeting dates */}
           <div className="mt-8 bg-white rounded-lg shadow-md p-6">
             <h2 className="text-2xl font-bold mb-4">Terminy spotkań</h2>
             {lessonDates.length > 0 ? (
               <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {lessonDates.map((lesson, index) => (
-                  <li key={index} className={`p-4 rounded-lg shadow-md flex flex-col items-center ${
-                    lesson.status === "odwołane" ? "bg-red-100 border border-red-500" : "bg-gray-100"
-                  }`}>
+                  <li key={index} className={`p-4 rounded-lg shadow-md flex flex-col items-center ${lesson.status === "odwołane" ? "bg-red-100 border border-red-500" : "bg-gray-100"}`}>
                     <span className="text-lg font-medium">{new Date(lesson.lessonDate).toLocaleString()}</span>
                     <p className="text-sm text-gray-600">Status: {lesson.status}</p>
 
@@ -136,6 +154,23 @@ const TeachersCourse = () => {
             ) : (
               <p className="text-gray-500">Brak dostępnych materiałów.</p>
             )}
+          </div>
+
+          {/* File upload */}
+          <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4">Dodaj nowy materiał PDF</h2>
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={handleFileChange}
+              className="mb-4"
+            />
+            <button
+              onClick={handleFileUpload}
+              className="bg-neonblue text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+            >
+              Wyślij
+            </button>
           </div>
         </div>
       </div>

@@ -74,7 +74,7 @@ const Offers = ({ userData }) => {
           {/* Buy button */}
           <div className="flex justify-center md:justify-end items-center mt-4 md:mt-0">
             <Link
-              to={`/user/buy-course/${userData?.username}/${course.id}`}
+              to={`/user/buy-course/${userData?.username}/${course?.id}`}
               className="bg-neonblue px-6 py-3 md:px-8 md:py-4 rounded-xl text-lg md:text-xl font-bold text-white shadow-sm transition-transform duration-150 hover:scale-105"
             >
               Kup lekcje

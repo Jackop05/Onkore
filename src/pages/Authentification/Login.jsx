@@ -12,6 +12,45 @@ const Login = () => {
   const [error, setError] = useState("");
 
 
+  // Reset password logic
+  const resetPassword = async (e) => {
+    e.preventDefault();
+
+    if (!email) {
+      alert("Please provide your email");
+      return;
+    }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Invalid email format!");
+      return;
+    }
+  
+    const userData = { email };
+  
+    try {
+      const response = await fetch("http://localhost:2020/api/user/create-reset-password-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      const result = await response.json();
+      console.log(result + " || " + response.ok)
+      if (!response.ok) {
+        setError(result.error || "Something went wrong...");
+        return;
+      }
+
+    } catch (error) {
+      console.log("An unexpected error occurred: ", error);
+    }
+  };
+  
+
   // Handle login function
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -47,6 +86,11 @@ const Login = () => {
     } catch (error) {
       setError("An unexpected error occurred.");
     }
+  };
+
+  // Logins user with google OAuth2
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:2020/oauth2/authorization/google";
   };
 
 
@@ -120,7 +164,10 @@ const Login = () => {
         </form>
 
         {/* Google Login */}
-        <button className="flex items-center justify-center px-4 py-2 w-full border border-gray-400 rounded-md shadow-sm bg-white text-gray-700 font-medium focus:ring-2 focus:ring-gray-300 ease-in-out transition-all duration-150 hover:scale-105">
+        <button 
+        onClick={handleGoogleLogin}
+          className="flex items-center justify-center px-4 py-2 w-full border border-gray-400 rounded-md shadow-sm bg-white text-gray-700 font-medium focus:ring-2 focus:ring-gray-300 ease-in-out transition-all duration-150 hover:scale-105"
+        >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-5 h-5 mr-3">
             <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
             <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
@@ -129,6 +176,9 @@ const Login = () => {
           </svg>
           <span className="font-medium text-lg">Zaloguj z Google</span>
         </button>
+
+        {/* Reset password link */}
+        <div onClick={(e) => {resetPassword(e)}} className="text-sm text-center text-blue-500 underline mt-2">Reset password for given email</div>
       </div>
     </div>
   );
